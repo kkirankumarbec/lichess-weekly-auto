@@ -2,7 +2,7 @@ import requests
 import os
 from datetime import datetime, timedelta
 
-TOKEN = os.getenv("LICHESS_TOKEN")
+TOKEN = os.getenv("LICHESS_TOKEN").strip()
 TEAM_ID = "kidschessclub"  # CHANGE THIS
 
 def get_next_wednesday():
