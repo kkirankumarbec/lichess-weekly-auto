@@ -2,20 +2,23 @@ import os
 import requests
 from datetime import datetime, timedelta
 
-# Read token from GitHub Secret
+# -----------------------------
+# Configuration
+# -----------------------------
 TOKEN = os.getenv("LICHESS_TOKEN", "").strip()
 
 if not TOKEN:
-    raise Exception("LICHESS_TOKEN secret is missing or empty.")
+    raise Exception("LICHESS_TOKEN secret is missing.")
 
 TEAM_ID = "kidschessclub"
 
-
+# -----------------------------
+# Calculate Next Wednesday
+# -----------------------------
 def get_next_wednesday():
     now = datetime.utcnow()
 
-    # Wednesday = 2
-    target_weekday = 2
+    target_weekday = 2  # Wednesday
 
     days_ahead = target_weekday - now.weekday()
 
@@ -24,7 +27,7 @@ def get_next_wednesday():
 
     next_day = now + timedelta(days=days_ahead)
 
-    # Wednesday 8:15 PM IST = 14:45 UTC
+    # 8:15 PM IST = 14:45 UTC
     return next_day.replace(
         hour=14,
         minute=45,
@@ -37,10 +40,14 @@ start_time = get_next_wednesday()
 
 start_timestamp = int(start_time.timestamp() * 1000)
 
-date_string = start_time.strftime("%d %b %Y")
+# Keep tournament name under 30 chars
+date_string = start_time.strftime("%d%b")
 
-tournament_name = f"Wednesday Kids Arena - {date_string}"
+tournament_name = f"Kids Arena {date_string}"
 
+# -----------------------------
+# API
+# -----------------------------
 url = "https://lichess.org/api/tournament"
 
 headers = {
@@ -53,9 +60,9 @@ payload = {
     "clockTime": 5,
     "clockIncrement": 0,
     "minutes": 30,
-    "rated": True,
-    "berserkable": False,
-    "streakable": False,
+    "rated": "true",
+    "berserkable": "false",
+    "streakable": "false",
     "chatFor": "none",
     "variant": "standard",
     "startDate": start_timestamp,
@@ -64,8 +71,8 @@ payload = {
 
 print("=" * 60)
 print("Creating Tournament")
-print("Name :", tournament_name)
-print("UTC Start :", start_time)
+print("Tournament :", tournament_name)
+print("UTC Start  :", start_time)
 print("=" * 60)
 
 response = requests.post(
