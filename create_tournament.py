@@ -2,90 +2,88 @@ import os
 import requests
 from datetime import datetime, timedelta
 
-# -----------------------------
-# Configuration
-# -----------------------------
 TOKEN = os.getenv("LICHESS_TOKEN", "").strip()
 
 if not TOKEN:
-    raise Exception("LICHESS_TOKEN secret is missing.")
+    raise Exception("LICHESS_TOKEN is missing.")
 
 TEAM_ID = "kidschessclub"
 
-# -----------------------------
-# Calculate Next Wednesday
-# -----------------------------
-def get_next_wednesday():
+
+def next_wednesday():
     now = datetime.utcnow()
 
-    target_weekday = 2  # Wednesday
+    days = (2 - now.weekday()) % 7
 
-    days_ahead = target_weekday - now.weekday()
+    if days == 0:
+        days = 7
 
-    if days_ahead <= 0:
-        days_ahead += 7
+    dt = now + timedelta(days=days)
 
-    next_day = now + timedelta(days=days_ahead)
-
-    # 8:15 PM IST = 14:45 UTC
-    return next_day.replace(
+    # Wednesday 8:15 PM IST
+    dt = dt.replace(
         hour=14,
         minute=45,
         second=0,
         microsecond=0
     )
 
+    return dt
 
-start_time = get_next_wednesday()
 
-start_timestamp = int(start_time.timestamp() * 1000)
+start = next_wednesday()
 
-# Keep tournament name under 30 chars
-date_string = start_time.strftime("%d%b")
+start_ms = int(start.timestamp() * 1000)
 
-tournament_name = f"Kids Arena {date_string}"
-
-# -----------------------------
-# API
-# -----------------------------
-url = "https://lichess.org/api/tournament"
+name = f"Kids {start.strftime('%d%b')}"
 
 headers = {
     "Authorization": f"Bearer {TOKEN}"
 }
 
 payload = {
-    "name": tournament_name,
-    "description": "KidsChessClub Weekly Arena",
+    "name": name,
     "clockTime": 5,
     "clockIncrement": 0,
     "minutes": 30,
     "rated": "true",
     "berserkable": "false",
     "streakable": "false",
-    "chatFor": "none",
     "variant": "standard",
-    "startDate": start_timestamp,
-    "teamBattleByTeam": TEAM_ID
+    "chatFor": "none",
+
+    # Wednesday 8:15 PM IST
+    "startDate": start_ms,
+
+    # Normal Team Arena
+    "team": TEAM_ID
 }
 
 print("=" * 60)
-print("Creating Tournament")
-print("Tournament :", tournament_name)
-print("UTC Start  :", start_time)
+print("Creating tournament")
+print("Tournament :", name)
+print("Starts UTC :", start)
 print("=" * 60)
 
 response = requests.post(
-    url,
+    "https://lichess.org/api/tournament",
     headers=headers,
     data=payload
 )
 
-print("Status Code :", response.status_code)
-print("Response :")
+print("Status :", response.status_code)
 print(response.text)
-print("=" * 60)
 
 response.raise_for_status()
 
-print("Tournament created successfully.")
+data = response.json()
+
+print("=" * 60)
+
+if "id" in data:
+    url = f"https://lichess.org/tournament/{data['id']}"
+    print("Tournament URL")
+    print(url)
+
+print("=" * 60)
+print("Tournament Created Successfully")
