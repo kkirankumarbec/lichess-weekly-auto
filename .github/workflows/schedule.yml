@@ -2,7 +2,8 @@ name: Weekly Lichess Tournament
 
 on:
   schedule:
-    # Every Wednesday at 14:45 UTC (8:15 PM IST)
+    # Every Wednesday 8:15 PM IST
+    # GitHub Actions uses UTC
     - cron: '45 14 * * 3'
 
   workflow_dispatch:
