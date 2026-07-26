@@ -1,28 +1,44 @@
-import requests
 import os
+import requests
 from datetime import datetime, timedelta
 
-TOKEN = os.getenv("LICHESS_TOKEN")
+# Read token from GitHub Secret
+TOKEN = os.getenv("LICHESS_TOKEN", "").strip()
+
+if not TOKEN:
+    raise Exception("LICHESS_TOKEN secret is missing or empty.")
+
 TEAM_ID = "kidschessclub"
+
 
 def get_next_wednesday():
     now = datetime.utcnow()
-    target_weekday = 2  # Wednesday
+
+    # Wednesday = 2
+    target_weekday = 2
 
     days_ahead = target_weekday - now.weekday()
+
     if days_ahead <= 0:
         days_ahead += 7
 
     next_day = now + timedelta(days=days_ahead)
 
-    # 8:15 PM IST = 14:45 UTC
-    return next_day.replace(hour=14, minute=45, second=0, microsecond=0)
+    # Wednesday 8:15 PM IST = 14:45 UTC
+    return next_day.replace(
+        hour=14,
+        minute=45,
+        second=0,
+        microsecond=0
+    )
+
 
 start_time = get_next_wednesday()
+
 start_timestamp = int(start_time.timestamp() * 1000)
 
-# ✅ Add formatted date in name
 date_string = start_time.strftime("%d %b %Y")
+
 tournament_name = f"Wednesday Kids Arena - {date_string}"
 
 url = "https://lichess.org/api/tournament"
@@ -31,7 +47,7 @@ headers = {
     "Authorization": f"Bearer {TOKEN}"
 }
 
-data = {
+payload = {
     "name": tournament_name,
     "description": "KidsChessClub Weekly Arena",
     "clockTime": 5,
@@ -46,7 +62,23 @@ data = {
     "teamBattleByTeam": TEAM_ID
 }
 
-response = requests.post(url, headers=headers, json=data)
+print("=" * 60)
+print("Creating Tournament")
+print("Name :", tournament_name)
+print("UTC Start :", start_time)
+print("=" * 60)
 
-print("Status Code:", response.status_code)
+response = requests.post(
+    url,
+    headers=headers,
+    data=payload
+)
+
+print("Status Code :", response.status_code)
+print("Response :")
 print(response.text)
+print("=" * 60)
+
+response.raise_for_status()
+
+print("Tournament created successfully.")
