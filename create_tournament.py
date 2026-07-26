@@ -20,7 +20,7 @@ def next_wednesday():
 
     dt = now + timedelta(days=days)
 
-    # Wednesday 8:15 PM IST
+    # Wednesday 8:16 PM IST
     dt = dt.replace(
         hour=14,
         minute=45,
