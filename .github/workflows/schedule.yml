@@ -2,23 +2,31 @@ name: Weekly Lichess Tournament
 
 on:
   schedule:
+    # Every Wednesday at 14:45 UTC (8:15 PM IST)
     - cron: '45 14 * * 3'
+
   workflow_dispatch:
 
 jobs:
-  run-script:
+  create-tournament:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
-      - run: pip install requests
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
 
-      - name: Run tournament script
-        run: python create_tournament.py
+      - name: Run Tournament Script
         env:
           LICHESS_TOKEN: ${{ secrets.LICHESS_TOKEN }}
+        run: |
+          python create_tournament.py
