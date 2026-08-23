@@ -2,10 +2,14 @@ name: Weekly Lichess Tournament
 
 on:
   schedule:
-    # Every Tuesday 02:30 UTC = 8:00 AM IST
-    - cron: '30 2 * * 2'
+    # Every Wednesday 10:15 UTC = 3:45 PM IST
+    # (creates that same day's 8:15 PM IST tournament, ~4.5h before start)
+    - cron: '15 10 * * 3'
 
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   create-tournament:
@@ -28,5 +32,16 @@ jobs:
       - name: Create Lichess Tournament
         env:
           LICHESS_TOKEN: ${{ secrets.LICHESS_TOKEN }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
         run: |
           python create_tournament.py
+
+      - name: Save updated counter
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add counter.txt
+          git diff --cached --quiet || git commit -m "Bump tournament counter"
+          git push
