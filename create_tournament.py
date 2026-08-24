@@ -75,8 +75,10 @@ payload = {
     "variant": "standard",
     "chatFor": "none",
     "startDate": start_ms,
-    # Restrict entry to KidsChessClub team members only
-    "team": TEAM_ID,
+    # Restrict entry to KidsChessClub team members only.
+    # NOTE: the real Lichess API param is the nested "conditions.teamMember.teamId" -
+    # a flat "team" field (used previously) is silently ignored by the API.
+    "conditions.teamMember.teamId": TEAM_ID,
 }
 
 print("=" * 60)
