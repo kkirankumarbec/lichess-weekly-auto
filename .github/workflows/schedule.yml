@@ -7,6 +7,15 @@ on:
     - cron: '15 10 * * 3'
 
   workflow_dispatch:
+    inputs:
+      start_ist:
+        description: 'Optional: instant/custom tournament start, IST, format YYYY-MM-DD HH:MM (24h). Leave blank for the normal next-Wednesday 8:15 PM behaviour.'
+        required: false
+        default: ''
+      code:
+        description: 'Optional: custom tournament name/code (e.g. KCC-EXTRA1). Leave blank to auto-use the next KCCnn counter (only if left blank).'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -35,6 +44,8 @@ jobs:
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
+          CUSTOM_START_IST: ${{ github.event.inputs.start_ist }}
+          CUSTOM_CODE: ${{ github.event.inputs.code }}
         run: |
           python create_tournament.py
 
