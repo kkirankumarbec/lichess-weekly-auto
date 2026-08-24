@@ -79,6 +79,8 @@ payload = {
     # NOTE: the real Lichess API param is the nested "conditions.teamMember.teamId" -
     # a flat "team" field (used previously) is silently ignored by the API.
     "conditions.teamMember.teamId": TEAM_ID,
+    # Real Lichess password gate - players must enter this code to join.
+    "password": code,
 }
 
 print("=" * 60)
@@ -116,8 +118,10 @@ if url:
         f"Tournament : {code}\n"
         f"Date       : {ist_start.strftime('%A, %d %B %Y')}\n"
         f"Starts     : 8:15 PM IST\n"
-        f"Join link  : {url}\n\n"
-        f"Only members of the KidsChessClub Lichess team can join.\n"
+        f"Join link  : {url}\n"
+        f"Join code  : {code}\n\n"
+        f"Only members of the KidsChessClub Lichess team can join, and they'll need\n"
+        f"the join code above (Lichess will prompt for it).\n"
         f"Share this link in the WhatsApp group so students have time to join before the start.\n\n"
         f"- Sent automatically by lichess-weekly-auto"
     )
