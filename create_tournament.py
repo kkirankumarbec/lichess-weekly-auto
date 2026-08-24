@@ -56,11 +56,11 @@ def send_email(subject, body):
     print("Notification email sent to", NOTIFY_EMAIL)
 
 
-start = next_wednesday()
+start = datetime(2026, 8, 26, 12, 30)  # TEMP TEST OVERRIDE: Wed 26 Aug, 6:00 PM IST
 start_ms = int(start.timestamp() * 1000)
 ist_start = start + timedelta(hours=5, minutes=30)
 
-code = next_code()
+code = "TEST1"  # TEMP TEST OVERRIDE: does not touch counter.txt
 
 headers = {"Authorization": f"Bearer {TOKEN}"}
 
@@ -111,13 +111,13 @@ print("=" * 60)
 print("Tournament Created Successfully")
 
 if url:
-    subject = f"♟️ KidsChessClub Tournament {code} — {ist_start.strftime('%a %d %b')}, 8:15 PM IST"
+    subject = f"♟️ KidsChessClub Tournament {code} — {ist_start.strftime('%a %d %b, %I:%M %p')} IST"
     body = (
         f"Hi,\n\n"
         f"This week's KidsChessClub tournament is ready.\n\n"
         f"Tournament : {code}\n"
         f"Date       : {ist_start.strftime('%A, %d %B %Y')}\n"
-        f"Starts     : 8:15 PM IST\n"
+        f"Starts     : {ist_start.strftime('%I:%M %p')} IST\n"
         f"Join link  : {url}\n"
         f"Join code  : {code}\n\n"
         f"Only members of the KidsChessClub Lichess team can join, and they'll need\n"
