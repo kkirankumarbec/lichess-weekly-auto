@@ -56,11 +56,11 @@ def send_email(subject, body):
     print("Notification email sent to", NOTIFY_EMAIL)
 
 
-start = datetime(2026, 8, 26, 12, 30)  # TEMP TEST OVERRIDE: Wed 26 Aug, 6:00 PM IST
+start = next_wednesday()
 start_ms = int(start.timestamp() * 1000)
 ist_start = start + timedelta(hours=5, minutes=30)
 
-code = "TEST1"  # TEMP TEST OVERRIDE: does not touch counter.txt
+code = next_code()
 
 headers = {"Authorization": f"Bearer {TOKEN}"}
 
