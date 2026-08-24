@@ -30,6 +30,22 @@ def next_wednesday():
     return dt
 
 
+def resolve_start():
+    """Manual trigger can override the schedule via the CUSTOM_START_IST
+    input ('YYYY-MM-DD HH:MM', IST, 24h clock). Blank/unset -> normal
+    next-Wednesday-8:15PM behaviour (used by the weekly cron)."""
+    custom = os.getenv("CUSTOM_START_IST", "").strip()
+    if not custom:
+        return next_wednesday()
+    ist = datetime.strptime(custom, "%Y-%m-%d %H:%M")
+    return ist - timedelta(hours=5, minutes=30)  # back to UTC
+
+
+def resolve_code():
+    custom = os.getenv("CUSTOM_CODE", "").strip()
+    return custom if custom else next_code()
+
+
 def next_code():
     try:
         with open(COUNTER_FILE) as f:
@@ -56,11 +72,11 @@ def send_email(subject, body):
     print("Notification email sent to", NOTIFY_EMAIL)
 
 
-start = next_wednesday()
+start = resolve_start()
 start_ms = int(start.timestamp() * 1000)
 ist_start = start + timedelta(hours=5, minutes=30)
 
-code = next_code()
+code = resolve_code()
 
 headers = {"Authorization": f"Bearer {TOKEN}"}
 
