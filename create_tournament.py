@@ -79,22 +79,21 @@ def fmt_time(ist_dt):
 
 
 def tournament_description(code, ist_start):
-    """Markdown shown on the Lichess tournament page itself."""
+    """Plain text shown on the Lichess tournament page itself."""
     return (
         f"Online tournament for the {TEAM_NAME} coaching group.\n\n"
-        f"**{code}** | {ist_start.strftime('%A, %d %B %Y')} | "
+        f"{code} | {ist_start.strftime('%A, %d %B %Y')} | "
         f"{fmt_time(ist_start)} IST | "
         f"{CLOCK_MINUTES}+{CLOCK_INCREMENT} blitz, "
         f"{DURATION_MINUTES}-minute arena, "
         f"{'rated' if RATED else 'casual'}.\n\n"
         f"Only members of the {TEAM_NAME} Lichess team may join, using the "
         f"join code shared in the group.\n\n"
-        f"**Please:** log in as yourself, join on time, play every game, "
-        f"think for yourself (no engine, no help), finish your games, and be "
-        f"a good sport.\n\n"
-        f"**Please don't:** share the link or code outside the group, use "
-        f"outside help, let anyone else play your moves, stall or deliberately "
-        f"lose, or use more than one account.\n\n"
+        f"DO: log in as yourself, join on time, play every game, think for "
+        f"yourself (no engine, no help), finish your games, and be a good sport.\n\n"
+        f"DON'T: share the link or code outside the group, use outside help, "
+        f"let anyone else play your moves, stall or deliberately lose, or use "
+        f"more than one account.\n\n"
         f"Questions during the event: {CONTACT_LINE}."
     )
 
@@ -198,7 +197,10 @@ payload = {
     "berserkable": "false",
     "streakable": "false",
     "variant": "standard",
-    "chatFor": "none",
+    # Lichess chatFor: 0 = no-one, 10 = team leaders, 20 = team members,
+    # 30 = all players. 0 keeps the kids' event chat-free. (The old "none"
+    # string was invalid and silently left chat on the default.)
+    "chatFor": 0,
     "startDate": start_ms,
     "description": tournament_description(code, ist_start),
     # Restrict entry to KidsChessClub team members only.
