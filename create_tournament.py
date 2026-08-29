@@ -225,8 +225,9 @@ response = requests.post(
     data=payload,
 )
 
-print("Status :", response.status_code)
-print(response.text)
+if not response.ok:
+    print("Lichess API error:", response.status_code)
+    print(response.text)
 response.raise_for_status()
 
 data = response.json()
