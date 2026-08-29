@@ -12,8 +12,24 @@ GMAIL_ADDRESS = os.getenv("GMAIL_ADDRESS", "").strip()
 GMAIL_APP_PASSWORD = os.getenv("GMAIL_APP_PASSWORD", "").strip()
 NOTIFY_EMAIL = os.getenv("NOTIFY_EMAIL", "").strip() or GMAIL_ADDRESS
 
+# "weekly"  -> scheduled Wednesday 8:15 PM IST event, code KCC<counter> (KCC82, KCC83, ...)
+# "instant" -> starts a few minutes from now, code KCC<day-of-month> (e.g. KCC29)
+MODE = os.getenv("MODE", "weekly").strip().lower()
+INSTANT_LEAD_MINUTES = 5
+
 TEAM_ID = "kidschessclub"
+TEAM_NAME = "KidsChessClub"
 COUNTER_FILE = "counter.txt"
+COUNTER_START = 82
+CONTACT_LINE = "Coach Kirankumar"
+
+# Tournament format (kept intentionally standard for the club event).
+CLOCK_MINUTES = 5
+CLOCK_INCREMENT = 0
+DURATION_MINUTES = 30
+RATED = True
+
+IST_OFFSET = timedelta(hours=5, minutes=30)
 
 
 def next_wednesday():
@@ -30,31 +46,17 @@ def next_wednesday():
     return dt
 
 
-def resolve_start():
-    """Manual trigger can override the schedule via the CUSTOM_START_IST
-    input ('YYYY-MM-DD HH:MM', IST, 24h clock). Blank/unset -> normal
-    next-Wednesday-8:15PM behaviour (used by the weekly cron)."""
-    custom = os.getenv("CUSTOM_START_IST", "").strip()
-    if not custom:
-        return next_wednesday()
-    ist = datetime.strptime(custom, "%Y-%m-%d %H:%M")
-    return ist - timedelta(hours=5, minutes=30)  # back to UTC
-
-
-def resolve_code():
-    custom = os.getenv("CUSTOM_CODE", "").strip()
-    return custom if custom else next_code()
-
-
-def next_code():
+def load_counter():
     try:
         with open(COUNTER_FILE) as f:
-            n = int(f.read().strip())
+            return int(f.read().strip())
     except (FileNotFoundError, ValueError):
-        n = 82
+        return COUNTER_START
+
+
+def save_counter(n):
     with open(COUNTER_FILE, "w") as f:
-        f.write(str(n + 1))
-    return f"KCC{n}"
+        f.write(str(n))
 
 
 def send_email(subject, body):
@@ -72,25 +74,133 @@ def send_email(subject, body):
     print("Notification email sent to", NOTIFY_EMAIL)
 
 
-start = resolve_start()
-start_ms = int(start.timestamp() * 1000)
-ist_start = start + timedelta(hours=5, minutes=30)
+def fmt_time(ist_dt):
+    return ist_dt.strftime('%I:%M %p').lstrip('0')
 
-code = resolve_code()
+
+def tournament_description(code, ist_start):
+    """Markdown shown on the Lichess tournament page itself."""
+    return (
+        f"Online tournament for the {TEAM_NAME} coaching group.\n\n"
+        f"**{code}** | {ist_start.strftime('%A, %d %B %Y')} | "
+        f"{fmt_time(ist_start)} IST | "
+        f"{CLOCK_MINUTES}+{CLOCK_INCREMENT} blitz, "
+        f"{DURATION_MINUTES}-minute arena, "
+        f"{'rated' if RATED else 'casual'}.\n\n"
+        f"Only members of the {TEAM_NAME} Lichess team may join, using the "
+        f"join code shared in the group.\n\n"
+        f"**Please:** log in as yourself, join on time, play every game, "
+        f"think for yourself (no engine, no help), finish your games, and be "
+        f"a good sport.\n\n"
+        f"**Please don't:** share the link or code outside the group, use "
+        f"outside help, let anyone else play your moves, stall or deliberately "
+        f"lose, or use more than one account.\n\n"
+        f"Questions during the event: {CONTACT_LINE}."
+    )
+
+
+def build_email(code, url, ist_start):
+    date_str = ist_start.strftime('%A, %d %B %Y')
+    short_date = ist_start.strftime('%a %d %b')
+    time_str = fmt_time(ist_start)
+    rule = "=" * 60
+    subject = f"KidsChessClub Tournament {code} - {short_date}, {time_str} IST"
+    body = f"""Hello,
+
+The following {TEAM_NAME} online tournament has been scheduled.
+The full details and a ready-to-share message for the WhatsApp group are below.
+
+{rule}
+  TOURNAMENT DETAILS
+{rule}
+  Name         : {code}
+  Date         : {date_str}
+  Start time   : {time_str} IST  (ask players to join a few minutes early)
+  Duration     : {DURATION_MINUTES} minutes (Arena - players are paired again
+                 automatically after every game)
+  Time control : {CLOCK_MINUTES} minutes per player, no increment (Blitz), \
+{'rated' if RATED else 'casual'}
+  Eligibility  : Members of the "{TEAM_NAME}" team on Lichess only
+  Join link    : {url}
+  Join code    : {code}
+
+{rule}
+  MESSAGE TO SHARE IN THE WHATSAPP GROUP
+{rule}
+
+Chess Club Tournament - {code}
+{date_str}, {time_str} IST
+
+Join link : {url}
+Join code : {code}
+
+HOW TO JOIN
+1. One time only: join the "{TEAM_NAME}" team on Lichess and wait to be accepted.
+2. Log in to your own Lichess account.
+3. Open the link above a few minutes before {time_str}.
+4. Click "Join", enter the code {code} when asked, then wait for your first game.
+
+DO
+- Log in with your own account and your real name.
+- Join on time. Late entries simply get less playing time.
+- Play every game. After a win or a loss you are paired again automatically.
+- Think for yourself and play your own moves.
+- Finish every game, including one you are losing.
+- Be polite: win modestly, lose gracefully.
+
+DO NOT
+- Do not share the link or the join code with anyone outside this group.
+- Do not use a chess engine, the analysis board, an opening database, or help
+  from another person.
+- Do not let a parent, sibling, or friend play your moves.
+- Do not deliberately lose, stall, or let your clock run down.
+- Do not use more than one Lichess account.
+- Do not leave the tournament early without telling the coach.
+
+Questions or problems: message {CONTACT_LINE} in the group.
+
+{rule}
+
+Sent automatically by lichess-weekly-auto ({MODE} run).
+"""
+    return subject, body
+
+
+now = datetime.utcnow()
+
+if MODE == "instant":
+    start = now + timedelta(minutes=INSTANT_LEAD_MINUTES)
+    ist_day = (now + IST_OFFSET).day
+    code = f"KCC{ist_day}"
+    counter_n = None
+else:
+    start = next_wednesday()
+    counter_n = load_counter()
+    code = f"KCC{counter_n}"
+
+if start <= now + timedelta(minutes=1):
+    raise SystemExit(
+        f"Computed start {start} UTC is in the past or too soon. Aborting "
+        f"so a broken tournament is not created."
+    )
+
+start_ms = int(start.timestamp() * 1000)
+ist_start = start + IST_OFFSET
 
 headers = {"Authorization": f"Bearer {TOKEN}"}
 
 payload = {
     "name": code,
-    "clockTime": 5,
-    "clockIncrement": 0,
-    "minutes": 30,
-    "rated": "true",
+    "clockTime": CLOCK_MINUTES,
+    "clockIncrement": CLOCK_INCREMENT,
+    "minutes": DURATION_MINUTES,
+    "rated": "true" if RATED else "false",
     "berserkable": "false",
     "streakable": "false",
     "variant": "standard",
     "chatFor": "none",
     "startDate": start_ms,
+    "description": tournament_description(code, ist_start),
     # Restrict entry to KidsChessClub team members only.
     # NOTE: the real Lichess API param is the nested "conditions.teamMember.teamId" -
     # a flat "team" field (used previously) is silently ignored by the API.
@@ -101,6 +211,7 @@ payload = {
 
 print("=" * 60)
 print("Creating tournament")
+print("Mode       :", MODE)
 print("Code       :", code)
 print("Starts UTC :", start)
 print("Starts IST :", ist_start.strftime("%a %d %b %Y, %I:%M %p"))
@@ -119,6 +230,11 @@ response.raise_for_status()
 data = response.json()
 url = f"https://lichess.org/tournament/{data['id']}" if "id" in data else None
 
+# Tournament created successfully - now it is safe to advance the counter.
+if counter_n is not None:
+    save_counter(counter_n + 1)
+    print("Counter advanced to", counter_n + 1)
+
 print("=" * 60)
 if url:
     print("Tournament URL")
@@ -127,18 +243,5 @@ print("=" * 60)
 print("Tournament Created Successfully")
 
 if url:
-    subject = f"♟️ KidsChessClub Tournament {code} — {ist_start.strftime('%a %d %b, %I:%M %p')} IST"
-    body = (
-        f"Hi,\n\n"
-        f"This week's KidsChessClub tournament is ready.\n\n"
-        f"Tournament : {code}\n"
-        f"Date       : {ist_start.strftime('%A, %d %B %Y')}\n"
-        f"Starts     : {ist_start.strftime('%I:%M %p')} IST\n"
-        f"Join link  : {url}\n"
-        f"Join code  : {code}\n\n"
-        f"Only members of the KidsChessClub Lichess team can join, and they'll need\n"
-        f"the join code above (Lichess will prompt for it).\n"
-        f"Share this link in the WhatsApp group so students have time to join before the start.\n\n"
-        f"- Sent automatically by lichess-weekly-auto"
-    )
+    subject, body = build_email(code, url, ist_start)
     send_email(subject, body)
