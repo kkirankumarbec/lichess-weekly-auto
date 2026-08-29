@@ -107,7 +107,6 @@ def build_email(code, url, ist_start):
     body = f"""Hello,
 
 The following {TEAM_NAME} online tournament has been scheduled.
-The full details and a ready-to-share message for the WhatsApp group are below.
 
 {rule}
   TOURNAMENT DETAILS
@@ -122,43 +121,10 @@ The full details and a ready-to-share message for the WhatsApp group are below.
   Eligibility  : Members of the "{TEAM_NAME}" team on Lichess only
   Join link    : {url}
   Join code    : {code}
-
-{rule}
-  MESSAGE TO SHARE IN THE WHATSAPP GROUP
 {rule}
 
-Chess Club Tournament - {code}
-{date_str}, {time_str} IST
-
-Join link : {url}
-Join code : {code}
-
-HOW TO JOIN
-1. One time only: join the "{TEAM_NAME}" team on Lichess and wait to be accepted.
-2. Log in to your own Lichess account.
-3. Open the link above a few minutes before {time_str}.
-4. Click "Join", enter the code {code} when asked, then wait for your first game.
-
-DO
-- Log in with your own account and your real name.
-- Join on time. Late entries simply get less playing time.
-- Play every game. After a win or a loss you are paired again automatically.
-- Think for yourself and play your own moves.
-- Finish every game, including one you are losing.
-- Be polite: win modestly, lose gracefully.
-
-DO NOT
-- Do not share the link or the join code with anyone outside this group.
-- Do not use a chess engine, the analysis board, an opening database, or help
-  from another person.
-- Do not let a parent, sibling, or friend play your moves.
-- Do not deliberately lose, stall, or let your clock run down.
-- Do not use more than one Lichess account.
-- Do not leave the tournament early without telling the coach.
-
-Questions or problems: message {CONTACT_LINE} in the group.
-
-{rule}
+Share the join link and code in the WhatsApp group. New players will find the
+do's and don'ts on the tournament page itself.
 
 Sent automatically by lichess-weekly-auto ({MODE} run).
 """
