@@ -1,0 +1,45 @@
+name: Instant Lichess Tournament
+
+# One-off tournament, on demand. No inputs to fill in - just press "Run workflow".
+# It starts ~5 minutes from the moment you run it, named KCC<day-of-month>
+# (e.g. run it on the 29th -> KCC29). Same team restriction, join code and
+# notification email as the weekly one. Does NOT touch the weekly KCC counter.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lichess-instant-tournament
+  cancel-in-progress: false
+
+jobs:
+  create-tournament:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Create Lichess Tournament
+        env:
+          MODE: instant
+          LICHESS_TOKEN: ${{ secrets.LICHESS_TOKEN }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
+        run: |
+          python create_tournament.py
