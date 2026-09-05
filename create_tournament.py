@@ -99,34 +99,19 @@ def tournament_description(code, ist_start):
 
 
 def build_email(code, url, ist_start):
-    date_str = ist_start.strftime('%A, %d %B %Y')
+    date_str = ist_start.strftime('%d %b %Y')
     short_date = ist_start.strftime('%a %d %b')
     time_str = fmt_time(ist_start)
-    rule = "=" * 60
     subject = f"KidsChessClub Tournament {code} - {short_date}, {time_str} IST"
-    body = f"""Hello,
+    body = f"""{code} | {date_str} | {time_str} IST (join a few minutes early)
+{CLOCK_MINUTES}+{CLOCK_INCREMENT} Blitz, {DURATION_MINUTES}-min arena, \
+{'rated' if RATED else 'casual'} | {TEAM_NAME} team members only
+Join code: {code}
 
-The following {TEAM_NAME} online tournament has been scheduled.
+Tournament link (tap to open):
+{url}
 
-{rule}
-  TOURNAMENT DETAILS
-{rule}
-  Name         : {code}
-  Date         : {date_str}
-  Start time   : {time_str} IST  (ask players to join a few minutes early)
-  Duration     : {DURATION_MINUTES} minutes (Arena - players are paired again
-                 automatically after every game)
-  Time control : {CLOCK_MINUTES} minutes per player, no increment (Blitz), \
-{'rated' if RATED else 'casual'}
-  Eligibility  : Members of the "{TEAM_NAME}" team on Lichess only
-  Join link    : {url}
-  Join code    : {code}
-{rule}
-
-Share the join link and code in the WhatsApp group. New players will find the
-do's and don'ts on the tournament page itself.
-
-Sent automatically by lichess-weekly-auto ({MODE} run).
+Share the link and code in the WhatsApp group.
 """
     return subject, body
 
