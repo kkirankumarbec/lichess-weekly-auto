@@ -1,4 +1,5 @@
 import os
+import json
 import smtplib
 from email.mime.text import MIMEText
 import requests
@@ -22,6 +23,9 @@ TEAM_NAME = "KidsChessClub"
 COUNTER_FILE = "counter.txt"
 COUNTER_START = 82
 CONTACT_LINE = "Coach Kirankumar"
+# Written after each weekly tournament so the results workflow knows which
+# tournament to fetch standings for. Instant tournaments do not touch it.
+LAST_TOURNAMENT_FILE = "last_tournament.json"
 
 # Tournament format (kept intentionally standard for the club event).
 CLOCK_MINUTES = 5
@@ -205,6 +209,21 @@ def main():
         print(url)
     print("=" * 60)
     print("Tournament Created Successfully")
+
+    # Record weekly tournaments so the results workflow can look them up.
+    if MODE == "weekly" and url:
+        with open(LAST_TOURNAMENT_FILE, "w") as f:
+            json.dump(
+                {
+                    "id": data["id"],
+                    "code": code,
+                    "ist_date": ist_start.strftime("%Y-%m-%d"),
+                    "ist_start": ist_start.strftime("%Y-%m-%d %H:%M"),
+                },
+                f,
+                indent=2,
+            )
+        print("Recorded", LAST_TOURNAMENT_FILE)
 
     if url:
         subject, body = build_email(code, url, ist_start)
