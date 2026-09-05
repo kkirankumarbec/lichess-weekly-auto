@@ -1,1 +1,33 @@
-[]
+[
+  {
+    "code": "KCC85",
+    "date": "2026-08-26",
+    "top": [
+      {
+        "rank": 1,
+        "name": "shreyansh1307",
+        "score": 9
+      },
+      {
+        "rank": 2,
+        "name": "Ricku_2017",
+        "score": 8
+      },
+      {
+        "rank": 3,
+        "name": "vivaangadia",
+        "score": 8
+      },
+      {
+        "rank": 4,
+        "name": "KhushiSK",
+        "score": 7
+      },
+      {
+        "rank": 5,
+        "name": "ArjunSarathi2",
+        "score": 7
+      }
+    ]
+  }
+]
