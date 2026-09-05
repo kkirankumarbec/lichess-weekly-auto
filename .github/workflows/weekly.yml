@@ -8,9 +8,13 @@ name: Weekly Lichess Tournament
 
 on:
   schedule:
-    # Every Wednesday 10:15 UTC = 3:45 PM IST
-    # (creates that same day's 8:15 PM IST tournament, ~4.5h before start)
-    - cron: '15 10 * * 3'
+    # Every Wednesday 03:30 UTC = 9:00 AM IST - creates that same day's
+    # 8:15 PM IST tournament, ~11h before start. GitHub's own "schedule"
+    # trigger is best-effort and can run late (seen delays of 4+ hours on
+    # this repo) - the large buffer here means a late-firing run still
+    # lands well before the tournament, instead of the ~15 minutes of
+    # notice a same-afternoon trigger would leave if it were delayed.
+    - cron: '30 3 * * 3'
   workflow_dispatch: {}
 
 permissions:
