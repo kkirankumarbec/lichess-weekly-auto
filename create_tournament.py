@@ -62,7 +62,7 @@ def save_counter(n):
 def send_email(subject, body):
     if not (GMAIL_ADDRESS and GMAIL_APP_PASSWORD and NOTIFY_EMAIL):
         print("Email not configured (GMAIL_ADDRESS / GMAIL_APP_PASSWORD / "
-              "NOTIFY_EMAIL missing) - skipping email, tournament still created.")
+              "NOTIFY_EMAIL missing) - skipping email:", subject)
         return
     msg = MIMEText(body)
     msg["Subject"] = subject
@@ -116,86 +116,106 @@ Share the link and code in the WhatsApp group.
     return subject, body
 
 
-now = datetime.utcnow()
+def send_alert(message):
+    """Best-effort failure alert - a run that creates nothing should still
+    tell the coach, instead of silently skipping the week."""
+    try:
+        send_email(f"[ALERT] lichess-weekly-auto ({MODE}) did not run", message)
+    except Exception as exc:
+        print("Also failed to send the alert email:", exc)
 
-if MODE == "instant":
-    start = now + timedelta(minutes=INSTANT_LEAD_MINUTES)
-    ist_day = (now + IST_OFFSET).day
-    code = f"KCC{ist_day}"
-    counter_n = None
-else:
-    start = next_wednesday()
-    counter_n = load_counter()
-    code = f"KCC{counter_n}"
 
-if start <= now + timedelta(minutes=1):
-    raise SystemExit(
-        f"Computed start {start} UTC is in the past or too soon. Aborting "
-        f"so a broken tournament is not created."
+def main():
+    now = datetime.utcnow()
+
+    if MODE == "instant":
+        start = now + timedelta(minutes=INSTANT_LEAD_MINUTES)
+        ist_day = (now + IST_OFFSET).day
+        code = f"KCC{ist_day}"
+        counter_n = None
+    else:
+        start = next_wednesday()
+        counter_n = load_counter()
+        code = f"KCC{counter_n}"
+
+    if start <= now + timedelta(minutes=1):
+        raise SystemExit(
+            f"Computed start {start} UTC is in the past or too soon. Aborting "
+            f"so a broken tournament is not created."
+        )
+
+    start_ms = int(start.timestamp() * 1000)
+    ist_start = start + IST_OFFSET
+
+    headers = {"Authorization": f"Bearer {TOKEN}"}
+
+    payload = {
+        "name": code,
+        "clockTime": CLOCK_MINUTES,
+        "clockIncrement": CLOCK_INCREMENT,
+        "minutes": DURATION_MINUTES,
+        "rated": "true" if RATED else "false",
+        "berserkable": "false",
+        "streakable": "false",
+        "variant": "standard",
+        # Lichess chatFor: 0 = no-one, 10 = team leaders, 20 = team members,
+        # 30 = all players. 0 keeps the kids' event chat-free. (The old "none"
+        # string was invalid and silently left chat on the default.)
+        "chatFor": 0,
+        "startDate": start_ms,
+        "description": tournament_description(code, ist_start),
+        # Restrict entry to KidsChessClub team members only.
+        # NOTE: the real Lichess API param is the nested "conditions.teamMember.teamId" -
+        # a flat "team" field (used previously) is silently ignored by the API.
+        "conditions.teamMember.teamId": TEAM_ID,
+        # Real Lichess password gate - players must enter this code to join.
+        "password": code,
+    }
+
+    print("=" * 60)
+    print("Creating tournament")
+    print("Mode       :", MODE)
+    print("Code       :", code)
+    print("Starts UTC :", start)
+    print("Starts IST :", ist_start.strftime("%a %d %b %Y, %I:%M %p"))
+    print("=" * 60)
+
+    response = requests.post(
+        "https://lichess.org/api/tournament",
+        headers=headers,
+        data=payload,
     )
 
-start_ms = int(start.timestamp() * 1000)
-ist_start = start + IST_OFFSET
+    if not response.ok:
+        print("Lichess API error:", response.status_code)
+        print(response.text)
+    response.raise_for_status()
 
-headers = {"Authorization": f"Bearer {TOKEN}"}
+    data = response.json()
+    url = f"https://lichess.org/tournament/{data['id']}" if "id" in data else None
 
-payload = {
-    "name": code,
-    "clockTime": CLOCK_MINUTES,
-    "clockIncrement": CLOCK_INCREMENT,
-    "minutes": DURATION_MINUTES,
-    "rated": "true" if RATED else "false",
-    "berserkable": "false",
-    "streakable": "false",
-    "variant": "standard",
-    # Lichess chatFor: 0 = no-one, 10 = team leaders, 20 = team members,
-    # 30 = all players. 0 keeps the kids' event chat-free. (The old "none"
-    # string was invalid and silently left chat on the default.)
-    "chatFor": 0,
-    "startDate": start_ms,
-    "description": tournament_description(code, ist_start),
-    # Restrict entry to KidsChessClub team members only.
-    # NOTE: the real Lichess API param is the nested "conditions.teamMember.teamId" -
-    # a flat "team" field (used previously) is silently ignored by the API.
-    "conditions.teamMember.teamId": TEAM_ID,
-    # Real Lichess password gate - players must enter this code to join.
-    "password": code,
-}
+    # Tournament created successfully - now it is safe to advance the counter.
+    if counter_n is not None:
+        save_counter(counter_n + 1)
+        print("Counter advanced to", counter_n + 1)
 
-print("=" * 60)
-print("Creating tournament")
-print("Mode       :", MODE)
-print("Code       :", code)
-print("Starts UTC :", start)
-print("Starts IST :", ist_start.strftime("%a %d %b %Y, %I:%M %p"))
-print("=" * 60)
+    print("=" * 60)
+    if url:
+        print("Tournament URL")
+        print(url)
+    print("=" * 60)
+    print("Tournament Created Successfully")
 
-response = requests.post(
-    "https://lichess.org/api/tournament",
-    headers=headers,
-    data=payload,
-)
+    if url:
+        subject, body = build_email(code, url, ist_start)
+        send_email(subject, body)
 
-if not response.ok:
-    print("Lichess API error:", response.status_code)
-    print(response.text)
-response.raise_for_status()
 
-data = response.json()
-url = f"https://lichess.org/tournament/{data['id']}" if "id" in data else None
-
-# Tournament created successfully - now it is safe to advance the counter.
-if counter_n is not None:
-    save_counter(counter_n + 1)
-    print("Counter advanced to", counter_n + 1)
-
-print("=" * 60)
-if url:
-    print("Tournament URL")
-    print(url)
-print("=" * 60)
-print("Tournament Created Successfully")
-
-if url:
-    subject, body = build_email(code, url, ist_start)
-    send_email(subject, body)
+try:
+    main()
+except SystemExit as exc:
+    send_alert(str(exc))
+    raise
+except Exception as exc:
+    send_alert(f"{type(exc).__name__}: {exc}")
+    raise
