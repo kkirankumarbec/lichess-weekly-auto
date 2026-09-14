@@ -1,17 +1,14 @@
 name: Weekly Tournament Results
 
-# After each weekly tournament finishes, fetch the final standings from
-# Lichess, email the top 5 plus the running month-to-date season table, and
-# update STANDINGS.md + results_log.json in the repo.
-# Reads last_tournament.json (written by the Weekly workflow). Instant
-# tournaments are not included.
-
 on:
   schedule:
-    # Wednesday 15:45 UTC = 9:15 PM IST - ~30 min after the 8:45 PM arena ends.
-    # Results don't expire, so a late run here is harmless.
     - cron: '45 15 * * 3'
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      resend:
+        description: 'Re-send current top 5 + month toppers without changing the log (yes/no)'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -41,6 +38,7 @@ jobs:
 
       - name: Post results
         env:
+          RESEND: ${{ github.event.inputs.resend }}
           LICHESS_TOKEN: ${{ secrets.LICHESS_TOKEN }}
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
