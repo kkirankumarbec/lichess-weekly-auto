@@ -17,7 +17,8 @@ LAST_TOURNAMENT_FILE = "last_tournament.json"
 RESULTS_LOG_FILE = "results_log.json"
 STANDINGS_FILE = "STANDINGS.md"
 
-# Season points awarded for finishing 1st, 2nd, ... in a weekly tournament.
+RESEND = os.getenv("RESEND", "").strip().lower() in ("1", "true", "yes")
+
 PLACE_POINTS = [5, 4, 3, 2, 1]
 TOP_N = len(PLACE_POINTS)
 _ORDINALS = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th"]
@@ -82,31 +83,30 @@ def fetch_top(tournament_id):
     return players[:TOP_N]
 
 
-def month_standings(log, year_month):
-    """Cumulative season points for every player in the given 'YYYY-MM'."""
+def month_toppers(log, year_month):
     points = {}
-    tournaments = 0
+    matches = 0
     for entry in log:
         if entry["date"][:7] != year_month:
             continue
-        tournaments += 1
+        matches += 1
         for player in entry["top"]:
             rank = player["rank"]
             if isinstance(rank, int) and 1 <= rank <= TOP_N and player["name"]:
                 points[player["name"]] = points.get(player["name"], 0) + PLACE_POINTS[rank - 1]
     ranked = sorted(points.items(), key=lambda kv: (-kv[1], kv[0].lower()))
-    return ranked, tournaments
+    return ranked, matches
 
 
-def write_standings_md(code, played_dt, top, ranked, month_label, tournaments):
+def write_standings_md(code, played_dt, top, ranked, month_label, matches):
     lines = [
         f"# {TEAM_NAME} standings",
         "",
         f"_Updated after {code} ({played_dt.strftime('%d %b %Y')})._",
         "",
-        f"## {month_label} - season points (after {tournaments} tournament(s))",
+        f"## {month_label} toppers (after {matches} match(es))",
         "",
-        f"Points per tournament: {points_key()}.",
+        f"Points per match: {points_key()}.",
         "",
         "| # | Player | Points |",
         "|---|--------|--------|",
@@ -124,61 +124,69 @@ def write_standings_md(code, played_dt, top, ranked, month_label, tournaments):
         f.write("\n".join(lines) + "\n")
 
 
+def build_and_send(code, date_str, top, log):
+    played_dt = datetime.strptime(date_str, "%Y-%m-%d")
+    year_month = date_str[:7]
+    month_label = played_dt.strftime("%B %Y")
+    ranked, matches = month_toppers(log, year_month)
+
+    month_complete = (played_dt + timedelta(days=7)).month != played_dt.month
+
+    body = [f"{code} - top 5 ({played_dt.strftime('%d %b %Y')})", ""]
+    if top:
+        for player in top:
+            body.append(f"  {player['rank']}. {player['name']} - {player['score']} pts")
+    else:
+        body.append("  No games were played.")
+    body += ["", f"{month_label} toppers (after {matches} match(es))"]
+    if ranked:
+        for i, (name, pts) in enumerate(ranked, 1):
+            body.append(f"  {i}. {name} - {pts} pts")
+    else:
+        body.append("  (no points yet)")
+    body.append("")
+    if month_complete and ranked:
+        body.append(f"** Player of the Month - {month_label}: {ranked[0][0]} ({ranked[0][1]} pts) **")
+        body.append("")
+    body.append(f"Points per match: {points_key()}. Full table: {STANDINGS_FILE} in the repo.")
+
+    subject = f"{TEAM_NAME} {code} - top 5 & {month_label} toppers"
+    text = "\n".join(body)
+
+    write_standings_md(code, played_dt, top, ranked, month_label, matches)
+
+    print("=" * 60)
+    print(text)
+    print("=" * 60)
+    send_email(subject, text)
+
+
 def main():
+    log = load_json(RESULTS_LOG_FILE, [])
+
+    if RESEND:
+        if not log:
+            raise SystemExit("No results logged yet - nothing to resend.")
+        entry = log[-1]
+        build_and_send(entry["code"], entry["date"], entry["top"], log)
+        return
+
     last = load_json(LAST_TOURNAMENT_FILE, None)
     if not last:
         raise SystemExit(
             f"{LAST_TOURNAMENT_FILE} not found - no weekly tournament recorded yet."
         )
 
-    log = load_json(RESULTS_LOG_FILE, [])
     if log and log[-1].get("code") == last["code"]:
         print(f"{last['code']} already has results logged - nothing to do.")
         return
 
-    played_dt = datetime.strptime(last["ist_date"], "%Y-%m-%d")
     top = fetch_top(last["id"])
-
     log.append({"code": last["code"], "date": last["ist_date"], "top": top})
     with open(RESULTS_LOG_FILE, "w", encoding="utf-8") as f:
         json.dump(log, f, indent=2)
 
-    year_month = last["ist_date"][:7]
-    month_label = played_dt.strftime("%B %Y")
-    ranked, tournaments = month_standings(log, year_month)
-
-    # Is this the final weekly tournament of the calendar month?
-    month_complete = (played_dt + timedelta(days=7)).month != played_dt.month
-
-    body = [f"{last['code']} results - {played_dt.strftime('%d %b %Y')}", ""]
-    if top:
-        for player in top:
-            body.append(f"  {player['rank']}. {player['name']}  ({player['score']} pts)")
-    else:
-        body.append("  No games were played.")
-    body += ["", f"{month_label} standings - after {tournaments} tournament(s)"]
-    if ranked:
-        for i, (name, pts) in enumerate(ranked, 1):
-            body.append(f"  {i}. {name}  {pts} pts")
-    else:
-        body.append("  (no points yet)")
-    body.append("")
-    if month_complete and ranked:
-        body.append(
-            f"** Player of the Month - {month_label}: {ranked[0][0]} ({ranked[0][1]} pts) **"
-        )
-        body.append("")
-    body.append(f"Season points: {points_key()}. Full table: {STANDINGS_FILE} in the repo.")
-
-    subject = f"{TEAM_NAME} {last['code']} - results & {month_label} standings"
-    text = "\n".join(body)
-
-    write_standings_md(last["code"], played_dt, top, ranked, month_label, tournaments)
-
-    print("=" * 60)
-    print(text)
-    print("=" * 60)
-    send_email(subject, text)
+    build_and_send(last["code"], last["ist_date"], top, log)
 
 
 try:
