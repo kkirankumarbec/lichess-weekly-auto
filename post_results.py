@@ -11,7 +11,6 @@ GMAIL_APP_PASSWORD = os.getenv("GMAIL_APP_PASSWORD", "").strip()
 NOTIFY_EMAIL = os.getenv("NOTIFY_EMAIL", "").strip() or GMAIL_ADDRESS
 
 TEAM_NAME = "KidsChessClub"
-CONTACT_LINE = "Coach Kirankumar"
 
 LAST_TOURNAMENT_FILE = "last_tournament.json"
 RESULTS_LOG_FILE = "results_log.json"
@@ -138,7 +137,12 @@ def build_and_send(code, date_str, top, log):
             body.append(f"  {player['rank']}. {player['name']} - {player['score']} pts")
     else:
         body.append("  No games were played.")
-    body += ["", f"{month_label} toppers (after {matches} match(es))"]
+    body += [
+        "",
+        f"{month_label} toppers (after {matches} match(es))",
+        f"Points legend: {points_key()}",
+        "",
+    ]
     if ranked:
         for i, (name, pts) in enumerate(ranked, 1):
             body.append(f"  {i}. {name} - {pts} pts")
@@ -148,7 +152,7 @@ def build_and_send(code, date_str, top, log):
     if month_complete and ranked:
         body.append(f"** Player of the Month - {month_label}: {ranked[0][0]} ({ranked[0][1]} pts) **")
         body.append("")
-    body.append(f"Points per match: {points_key()}. Full table: {STANDINGS_FILE} in the repo.")
+    body.append(f"Full table: {STANDINGS_FILE} in the repo.")
 
     subject = f"{TEAM_NAME} {code} - top 5 & {month_label} toppers"
     text = "\n".join(body)
