@@ -13,8 +13,6 @@ GMAIL_ADDRESS = os.getenv("GMAIL_ADDRESS", "").strip()
 GMAIL_APP_PASSWORD = os.getenv("GMAIL_APP_PASSWORD", "").strip()
 NOTIFY_EMAIL = os.getenv("NOTIFY_EMAIL", "").strip() or GMAIL_ADDRESS
 
-# "weekly"  -> scheduled Wednesday 8:15 PM IST event, code KCC<counter> (KCC82, KCC83, ...)
-# "instant" -> starts a few minutes from now, code KCC<day-of-month> (e.g. KCC29)
 MODE = os.getenv("MODE", "weekly").strip().lower()
 INSTANT_LEAD_MINUTES = 5
 
@@ -22,12 +20,8 @@ TEAM_ID = "kidschessclub"
 TEAM_NAME = "KidsChessClub"
 COUNTER_FILE = "counter.txt"
 COUNTER_START = 82
-CONTACT_LINE = "Coach Kirankumar"
-# Written after each weekly tournament so the results workflow knows which
-# tournament to fetch standings for. Instant tournaments do not touch it.
 LAST_TOURNAMENT_FILE = "last_tournament.json"
 
-# Tournament format (kept intentionally standard for the club event).
 CLOCK_MINUTES = 5
 CLOCK_INCREMENT = 0
 DURATION_MINUTES = 30
@@ -37,9 +31,6 @@ IST_OFFSET = timedelta(hours=5, minutes=30)
 
 
 def next_wednesday():
-    """Wednesday 14:45 UTC (8:15 PM IST). If run on Wednesday itself before
-    that time, targets *today*. Otherwise the coming Wednesday. Never
-    returns a time already in the past."""
     now = datetime.utcnow()
     days = (2 - now.weekday()) % 7
     dt = (now + timedelta(days=days)).replace(
@@ -83,22 +74,17 @@ def fmt_time(ist_dt):
 
 
 def tournament_description(code, ist_start):
-    """Plain text shown on the Lichess tournament page itself."""
     return (
-        f"Online tournament for the {TEAM_NAME} coaching group.\n\n"
         f"{code} | {ist_start.strftime('%A, %d %B %Y')} | "
         f"{fmt_time(ist_start)} IST | "
         f"{CLOCK_MINUTES}+{CLOCK_INCREMENT} blitz, "
-        f"{DURATION_MINUTES}-minute arena, "
+        f"{DURATION_MINUTES}-min arena, "
         f"{'rated' if RATED else 'casual'}.\n\n"
-        f"Only members of the {TEAM_NAME} Lichess team may join, using the "
-        f"join code shared in the group.\n\n"
-        f"DO: log in as yourself, join on time, play every game, think for "
-        f"yourself (no engine, no help), finish your games, and be a good sport.\n\n"
-        f"DON'T: share the link or code outside the group, use outside help, "
-        f"let anyone else play your moves, stall or deliberately lose, or use "
-        f"more than one account.\n\n"
-        f"Questions during the event: {CONTACT_LINE}."
+        f"{TEAM_NAME} team members only - join code shared in the group.\n\n"
+        f"DO: log in as yourself, play every game, think for yourself, "
+        f"finish your games, be a good sport.\n\n"
+        f"DON'T: share the link/code outside the group, get outside help, "
+        f"let others play your moves, stall, or use multiple accounts."
     )
 
 
@@ -121,8 +107,6 @@ Share the link and code in the WhatsApp group.
 
 
 def send_alert(message):
-    """Best-effort failure alert - a run that creates nothing should still
-    tell the coach, instead of silently skipping the week."""
     try:
         send_email(f"[ALERT] lichess-weekly-auto ({MODE}) did not run", message)
     except Exception as exc:
@@ -162,17 +146,10 @@ def main():
         "berserkable": "false",
         "streakable": "false",
         "variant": "standard",
-        # Lichess chatFor: 0 = no-one, 10 = team leaders, 20 = team members,
-        # 30 = all players. 0 keeps the kids' event chat-free. (The old "none"
-        # string was invalid and silently left chat on the default.)
         "chatFor": 0,
         "startDate": start_ms,
         "description": tournament_description(code, ist_start),
-        # Restrict entry to KidsChessClub team members only.
-        # NOTE: the real Lichess API param is the nested "conditions.teamMember.teamId" -
-        # a flat "team" field (used previously) is silently ignored by the API.
         "conditions.teamMember.teamId": TEAM_ID,
-        # Real Lichess password gate - players must enter this code to join.
         "password": code,
     }
 
@@ -198,7 +175,6 @@ def main():
     data = response.json()
     url = f"https://lichess.org/tournament/{data['id']}" if "id" in data else None
 
-    # Tournament created successfully - now it is safe to advance the counter.
     if counter_n is not None:
         save_counter(counter_n + 1)
         print("Counter advanced to", counter_n + 1)
@@ -210,7 +186,6 @@ def main():
     print("=" * 60)
     print("Tournament Created Successfully")
 
-    # Record weekly tournaments so the results workflow can look them up.
     if MODE == "weekly" and url:
         with open(LAST_TOURNAMENT_FILE, "w") as f:
             json.dump(
