@@ -1,19 +1,7 @@
 name: Weekly Lichess Tournament
 
-# Automatic weekly club tournament: Wednesday 8:15 PM IST, code KCC<counter>.
-# The manual "Run workflow" button here does the SAME thing - use it only if a
-# scheduled Wednesday run failed and you need to force this week's tournament.
-# For a one-off tournament right now, use the separate "Instant Lichess
-# Tournament" workflow instead.
-
 on:
   schedule:
-    # Every Wednesday 03:30 UTC = 9:00 AM IST - creates that same day's
-    # 8:15 PM IST tournament, ~11h before start. GitHub's own "schedule"
-    # trigger is best-effort and can run late (seen delays of 4+ hours on
-    # this repo) - the large buffer here means a late-firing run still
-    # lands well before the tournament, instead of the ~15 minutes of
-    # notice a same-afternoon trigger would leave if it were delayed.
     - cron: '30 3 * * 3'
   workflow_dispatch: {}
 
@@ -54,6 +42,7 @@ jobs:
           python create_tournament.py
 
       - name: Save updated state
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
