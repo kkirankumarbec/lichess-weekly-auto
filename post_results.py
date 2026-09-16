@@ -114,11 +114,11 @@ def write_standings_md(code, played_dt, top, ranked, month_label, matches):
         lines.append(f"| {i} | {name} | {pts} |")
     if not ranked:
         lines.append("| - | (no points yet) | 0 |")
-    lines += ["", f"### {code} - top {TOP_N}", "", "| Rank | Player | Score |", "|------|--------|-------|"]
+    lines += ["", f"### {code} - top {TOP_N}", "", "| Rank | Player |", "|------|--------|"]
     for player in top:
-        lines.append(f"| {player['rank']} | {player['name']} | {player['score']} |")
+        lines.append(f"| {player['rank']} | {player['name']} |")
     if not top:
-        lines.append("| - | (no games played) | - |")
+        lines.append("| - | (no games played) |")
     with open(STANDINGS_FILE, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
 
@@ -134,7 +134,7 @@ def build_and_send(code, date_str, top, log):
     body = [f"{code} - top 5 ({played_dt.strftime('%d %b %Y')})", ""]
     if top:
         for player in top:
-            body.append(f"  {player['rank']}. {player['name']} - {player['score']} pts")
+            body.append(f"  {player['rank']}. {player['name']}")
     else:
         body.append("  No games were played.")
     body += [
