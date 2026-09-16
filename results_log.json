@@ -1,1 +1,95 @@
-[{"code":"KCC87","date":"2026-09-02","top":[{"rank":1,"name":"Aarav_006","score":9},{"rank":2,"name":"srivastava_kanha29","score":8},{"rank":3,"name":"Ricku_2017","score":8},{"rank":4,"name":"KhushiSK","score":8},{"rank":5,"name":"ArjunSarathi2","score":7}]},{"code":"KCC89","date":"2026-09-09","top":[{"rank":1,"name":"Ramdsmax20","score":9},{"rank":2,"name":"vivaangadia","score":8},{"rank":3,"name":"Ricku_2017","score":7},{"rank":4,"name":"shreyansh1307","score":6},{"rank":5,"name":"radhesh_s","score":6}]}]
+[
+  {
+    "code": "KCC87",
+    "date": "2026-09-02",
+    "top": [
+      {
+        "rank": 1,
+        "name": "Aarav_006",
+        "score": 9
+      },
+      {
+        "rank": 2,
+        "name": "srivastava_kanha29",
+        "score": 8
+      },
+      {
+        "rank": 3,
+        "name": "Ricku_2017",
+        "score": 8
+      },
+      {
+        "rank": 4,
+        "name": "KhushiSK",
+        "score": 8
+      },
+      {
+        "rank": 5,
+        "name": "ArjunSarathi2",
+        "score": 7
+      }
+    ]
+  },
+  {
+    "code": "KCC89",
+    "date": "2026-09-09",
+    "top": [
+      {
+        "rank": 1,
+        "name": "Ramdsmax20",
+        "score": 9
+      },
+      {
+        "rank": 2,
+        "name": "vivaangadia",
+        "score": 8
+      },
+      {
+        "rank": 3,
+        "name": "Ricku_2017",
+        "score": 7
+      },
+      {
+        "rank": 4,
+        "name": "shreyansh1307",
+        "score": 6
+      },
+      {
+        "rank": 5,
+        "name": "radhesh_s",
+        "score": 6
+      }
+    ]
+  },
+  {
+    "code": "KCC90",
+    "date": "2026-09-16",
+    "top": [
+      {
+        "rank": 1,
+        "name": "Ricku_2017",
+        "score": 11
+      },
+      {
+        "rank": 2,
+        "name": "shreyansh1307",
+        "score": 10
+      },
+      {
+        "rank": 3,
+        "name": "KavishAnto1",
+        "score": 10
+      },
+      {
+        "rank": 4,
+        "name": "srivastava_kanha29",
+        "score": 10
+      },
+      {
+        "rank": 5,
+        "name": "Mugdha_SV",
+        "score": 8
+      }
+    ]
+  }
+]
