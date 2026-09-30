@@ -122,5 +122,36 @@
         "score": 8
       }
     ]
+  },
+  {
+    "code": "KCC92",
+    "date": "2026-09-30",
+    "top": [
+      {
+        "rank": 1,
+        "name": "KhushiSK",
+        "score": 12
+      },
+      {
+        "rank": 2,
+        "name": "Ricku_2017",
+        "score": 10
+      },
+      {
+        "rank": 3,
+        "name": "AdhinavGupta",
+        "score": 8
+      },
+      {
+        "rank": 4,
+        "name": "Kaishn",
+        "score": 8
+      },
+      {
+        "rank": 5,
+        "name": "vivaangadia",
+        "score": 8
+      }
+    ]
   }
 ]
