@@ -135,7 +135,10 @@ def main():
     start_ms = int(start.timestamp() * 1000)
     ist_start = start + IST_OFFSET
 
-    headers = {"Authorization": f"Bearer {TOKEN}"}
+    headers = {
+        "Authorization": f"Bearer {TOKEN}",
+        "Accept": "application/json",
+    }
 
     payload = {
         "name": code,
