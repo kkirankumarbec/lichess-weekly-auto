@@ -48,7 +48,6 @@ jobs:
 
       - name: Pull puzzle from Lichess
         env:
-          LICHESS_TOKEN: ${{ secrets.LICHESS_TOKEN }}
           PUZZLE_DIFFICULTY: ${{ inputs.difficulty || 'easiest' }}
           PUZZLE_ANGLE: ${{ inputs.angle || 'mix' }}
         run: |

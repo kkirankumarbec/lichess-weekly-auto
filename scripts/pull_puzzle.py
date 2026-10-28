@@ -7,7 +7,6 @@ from datetime import datetime, timezone
 import chess
 import requests
 
-LICHESS_TOKEN = os.getenv("LICHESS_TOKEN", "").strip()
 DIFFICULTY = os.getenv("PUZZLE_DIFFICULTY", "easiest").strip()
 ANGLE = os.getenv("PUZZLE_ANGLE", "mix").strip()
 
@@ -16,13 +15,13 @@ HISTORY_FILE = "data/puzzle_history.json"
 
 
 def fetch_puzzle():
-    headers = {}
-    if LICHESS_TOKEN:
-        headers["Authorization"] = f"Bearer {LICHESS_TOKEN}"
+    # Called anonymously on purpose: /api/puzzle/next 403s when called with
+    # a bearer token that lacks the puzzle:read scope (our LICHESS_TOKEN is
+    # scoped for tournament management, not puzzles), and anonymous access
+    # is exactly what Lichess's docs describe this endpoint for.
     resp = requests.get(
         "https://lichess.org/api/puzzle/next",
         params={"angle": ANGLE, "difficulty": DIFFICULTY},
-        headers=headers,
     )
     resp.raise_for_status()
     return resp.json()
