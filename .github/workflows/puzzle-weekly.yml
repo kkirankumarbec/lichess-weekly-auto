@@ -1,0 +1,63 @@
+name: Weekly Chess Puzzle
+
+# Pulls a fresh puzzle from Lichess every Monday morning (IST) so kids have
+# the whole week to solve it as homework before Friday's recap.
+# Run manually any time to re-roll this week's puzzle (e.g. pick a different
+# difficulty/theme, or if a puzzle turns out to be a dud).
+
+on:
+  schedule:
+    # Monday 00:30 UTC = 6:00 AM IST
+    - cron: '30 0 * * 1'
+  workflow_dispatch:
+    inputs:
+      difficulty:
+        description: 'easiest | easier | normal | harder | hardest'
+        required: false
+        default: 'easiest'
+      angle:
+        description: 'Lichess puzzle theme filter, e.g. mix, mateIn1, fork'
+        required: false
+        default: 'mix'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: chess-puzzle-weekly
+  cancel-in-progress: false
+
+jobs:
+  pull-puzzle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests chess
+
+      - name: Pull puzzle from Lichess
+        env:
+          LICHESS_TOKEN: ${{ secrets.LICHESS_TOKEN }}
+          PUZZLE_DIFFICULTY: ${{ inputs.difficulty || 'easiest' }}
+          PUZZLE_ANGLE: ${{ inputs.angle || 'mix' }}
+        run: |
+          python scripts/pull_puzzle.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/puzzle.json data/puzzle_history.json
+          git diff --cached --quiet || git commit -m "New weekly chess puzzle"
+          git push

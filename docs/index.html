@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KidsChessClub Puzzle of the Week</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <h1>&#9813; KidsChessClub Puzzle of the Week</h1>
+  <div class="subtitle" id="puzzle-meta">Loading this week's puzzle...</div>
+
+  <div class="card">
+    <div id="board"></div>
+    <div id="status"></div>
+    <div class="row">
+      <button id="reset-btn" class="secondary">Start Over</button>
+    </div>
+    <div class="meta" id="puzzle-link"></div>
+  </div>
+
+  <div class="card hidden" id="name-card">
+    <p><strong>Solved it! &#127881;</strong> Type your name to save your point:</p>
+    <div class="row">
+      <input type="text" id="name-input" placeholder="Your name" maxlength="40">
+      <button id="save-btn">Save</button>
+    </div>
+    <div class="meta" id="save-status"></div>
+  </div>
+
+  <div class="card">
+    <div class="tabs">
+      <div class="tab active" data-tab="week">This Week</div>
+      <div class="tab" data-tab="alltime">All-Time</div>
+    </div>
+    <table id="leaderboard-table">
+      <thead><tr><th>Name</th><th>Points</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <div class="meta" id="leaderboard-meta"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
