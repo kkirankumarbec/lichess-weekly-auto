@@ -1,0 +1,17 @@
+[
+  {
+    "puzzleId": "ZtBLv",
+    "week": "2026-W44",
+    "pulledAtUtc": "2026-10-28 14:41:47",
+    "fen": "2k2N2/1b3p2/2q1pR1p/2p1P3/2Pp4/pP1QR1P1/P6P/6K1 b - - 0 33",
+    "sideToMove": "black",
+    "solution": [
+      "c6g2"
+    ],
+    "rating": 1038,
+    "themes": [
+      "endgame"
+    ],
+    "lichessUrl": "https://lichess.org/training/ZtBLv"
+  }
+]
