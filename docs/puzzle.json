@@ -1,15 +1,19 @@
 {
-  "puzzleId": "ZtBLv",
+  "puzzleId": "ZyWWA",
+  "date": "2026-10-30",
   "week": "2026-W44",
-  "pulledAtUtc": "2026-10-28 14:41:47",
-  "fen": "2k2N2/1b3p2/2q1pR1p/2p1P3/2Pp4/pP1QR1P1/P6P/6K1 b - - 0 33",
+  "pulledAtUtc": "2026-10-30 09:09:59",
+  "fen": "r1b1k2r/pp3p1p/1qn2p2/4p3/N7/3P1N2/PPP1KbPP/R2Q1B1R b kq - 1 10",
   "sideToMove": "black",
   "solution": [
-    "c6g2"
+    "b6e3"
   ],
-  "rating": 1038,
+  "rating": 688,
   "themes": [
-    "endgame"
+    "master",
+    "oneMove",
+    "opening",
+    "mateIn1"
   ],
-  "lichessUrl": "https://lichess.org/training/ZtBLv"
+  "lichessUrl": "https://lichess.org/training/ZyWWA"
 }

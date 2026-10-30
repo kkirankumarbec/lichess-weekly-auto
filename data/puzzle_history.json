@@ -13,5 +13,24 @@
       "endgame"
     ],
     "lichessUrl": "https://lichess.org/training/ZtBLv"
+  },
+  {
+    "puzzleId": "ZyWWA",
+    "date": "2026-10-30",
+    "week": "2026-W44",
+    "pulledAtUtc": "2026-10-30 09:09:59",
+    "fen": "r1b1k2r/pp3p1p/1qn2p2/4p3/N7/3P1N2/PPP1KbPP/R2Q1B1R b kq - 1 10",
+    "sideToMove": "black",
+    "solution": [
+      "b6e3"
+    ],
+    "rating": 688,
+    "themes": [
+      "master",
+      "oneMove",
+      "opening",
+      "mateIn1"
+    ],
+    "lichessUrl": "https://lichess.org/training/ZyWWA"
   }
 ]
