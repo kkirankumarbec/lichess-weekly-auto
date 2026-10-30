@@ -170,11 +170,11 @@
   function onSolved() {
     state.solved = true;
     setStatus("Solved! Great job! 🎉", "ok");
-    var week = state.puzzle.week;
-    var savedName = localStorage.getItem("kcc-puzzle-saved-" + week);
+    var puzzleDate = state.puzzle.date;
+    var savedName = localStorage.getItem("kcc-puzzle-saved-" + puzzleDate);
     if (savedName) {
       nameCard.classList.add("hidden");
-      saveStatus.textContent = "Already saved as " + savedName + " for this week.";
+      saveStatus.textContent = "Already saved as " + savedName + " for this puzzle.";
     } else if (!window.PUZZLE_CONFIG.formActionUrl) {
       nameCard.classList.remove("hidden");
       nameInput.disabled = true;
@@ -202,7 +202,7 @@
     renderBoard();
 
     metaEl.textContent =
-      "Week " + puzzle.week + " · Rating ~" + puzzle.rating +
+      puzzle.date + " (week " + puzzle.week + ") · Rating ~" + puzzle.rating +
       (puzzle.themes && puzzle.themes.length ? " · " + puzzle.themes.slice(0, 2).join(", ") : "");
     linkEl.innerHTML = puzzle.lichessUrl
       ? '<a href="' + puzzle.lichessUrl + '" target="_blank" rel="noopener">View this puzzle on Lichess</a>'
@@ -222,7 +222,7 @@
     var cfg = window.PUZZLE_CONFIG;
     var body = new URLSearchParams();
     body.set(cfg.formEntryName, name);
-    body.set(cfg.formEntryWeek, state.puzzle.week);
+    body.set(cfg.formEntryWeek, state.puzzle.date);
 
     saveBtn.disabled = true;
     fetch(cfg.formActionUrl, {
@@ -234,7 +234,7 @@
       // no-cors gives no readable response either way; this just catches
       // a hard network failure (offline, blocked), not a form rejection.
     }).then(function () {
-      localStorage.setItem("kcc-puzzle-saved-" + state.puzzle.week, name);
+      localStorage.setItem("kcc-puzzle-saved-" + state.puzzle.date, name);
       saveStatus.textContent = "Saved! See you on the leaderboard soon.";
     });
   });

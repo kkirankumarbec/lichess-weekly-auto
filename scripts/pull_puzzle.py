@@ -57,6 +57,10 @@ def main():
     now = datetime.now(timezone.utc)
     record = {
         "puzzleId": puzzle["id"],
+        # `date` is this puzzle's unique key (one per pull - now Mon/Wed/Fri,
+        # so several per week). `week` is only for grouping in the "this
+        # week" leaderboard view.
+        "date": now.strftime("%Y-%m-%d"),
         "week": week_key(now),
         "pulledAtUtc": now.strftime("%Y-%m-%d %H:%M:%S"),
         "fen": fen,

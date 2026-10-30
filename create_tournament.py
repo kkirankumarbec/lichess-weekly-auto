@@ -21,6 +21,7 @@ TEAM_NAME = "KidsChessClub"
 COUNTER_FILE = "counter.txt"
 COUNTER_START = 82
 LAST_TOURNAMENT_FILE = "last_tournament.json"
+PUZZLE_PAGE_URL = "https://kkirankumarbec.github.io/lichess-weekly-auto/"
 
 CLOCK_MINUTES = 5
 CLOCK_INCREMENT = 0
@@ -88,7 +89,7 @@ def tournament_description(code, ist_start):
     )
 
 
-def build_email(code, url, ist_start):
+def build_email(code, url, ist_start, mode):
     date_str = ist_start.strftime('%d %b %Y')
     short_date = ist_start.strftime('%a %d %b')
     time_str = fmt_time(ist_start)
@@ -102,6 +103,11 @@ Tournament link (tap to open):
 {url}
 
 Share the link and code in the WhatsApp group.
+"""
+    if mode == "weekly":
+        body += f"""
+Puzzle homework (same link every week, bookmark it):
+{PUZZLE_PAGE_URL}
 """
     return subject, body
 
@@ -204,7 +210,7 @@ def main():
         print("Recorded", LAST_TOURNAMENT_FILE)
 
     if url:
-        subject, body = build_email(code, url, ist_start)
+        subject, body = build_email(code, url, ist_start, MODE)
         send_email(subject, body)
 
 

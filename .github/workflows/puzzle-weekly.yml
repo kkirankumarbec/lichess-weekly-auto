@@ -1,14 +1,14 @@
 name: Weekly Chess Puzzle
 
-# Pulls a fresh puzzle from Lichess every Monday morning (IST) so kids have
-# the whole week to solve it as homework before Friday's recap.
-# Run manually any time to re-roll this week's puzzle (e.g. pick a different
-# difficulty/theme, or if a puzzle turns out to be a dud).
+# Pulls a fresh puzzle from Lichess every Monday, Wednesday and Friday
+# morning (IST) - three puzzles a week as homework, building up to Friday's
+# recap. Run manually any time to pull an extra/replacement puzzle (e.g.
+# pick a different difficulty/theme, or if a puzzle turns out to be a dud).
 
 on:
   schedule:
-    # Monday 00:30 UTC = 6:00 AM IST
-    - cron: '30 0 * * 1'
+    # Mon/Wed/Fri 00:30 UTC = 6:00 AM IST
+    - cron: '30 0 * * 1,3,5'
   workflow_dispatch:
     inputs:
       difficulty:
@@ -58,5 +58,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/puzzle.json data/puzzle_history.json
-          git diff --cached --quiet || git commit -m "New weekly chess puzzle"
+          git diff --cached --quiet || git commit -m "New chess puzzle"
           git push

@@ -31,6 +31,19 @@ def current_week():
     return week_key(datetime.now(timezone.utc))
 
 
+def week_of(date_str):
+    """Derive the ISO week key (e.g. 2026-W44) from a puzzle's YYYY-MM-DD
+    date. Returns None for anything that doesn't parse as that format -
+    e.g. leftover test rows submitted before puzzles carried a date."""
+    from pull_puzzle import week_key
+
+    try:
+        dt = datetime.strptime(date_str, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+    except ValueError:
+        return None
+    return week_key(dt)
+
+
 def main():
     config = load_config()
     csv_url = config.get("csv_url", "").strip()
@@ -40,8 +53,8 @@ def main():
 
     rows = fetch_rows(csv_url)
 
-    # One point per (name, week) - a kid can't inflate their score by
-    # submitting the same week's puzzle more than once.
+    # One point per (name, puzzle date) - solving Monday's and Wednesday's
+    # puzzle both count; resubmitting the same puzzle doesn't.
     seen = set()
     weekly_points = defaultdict(lambda: defaultdict(int))
     all_time_points = defaultdict(int)
@@ -50,10 +63,11 @@ def main():
     for row in rows:
         if len(row) < 3:
             continue
-        _timestamp, raw_name, week = row[0], row[1].strip(), row[2].strip()
-        if not raw_name or not week:
+        _timestamp, raw_name, puzzle_date = row[0], row[1].strip(), row[2].strip()
+        week = week_of(puzzle_date)
+        if not raw_name or not puzzle_date or week is None:
             continue
-        key = (raw_name.lower(), week)
+        key = (raw_name.lower(), puzzle_date)
         if key in seen:
             continue
         seen.add(key)
