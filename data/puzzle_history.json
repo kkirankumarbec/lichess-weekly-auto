@@ -32,5 +32,26 @@
       "mateIn1"
     ],
     "lichessUrl": "https://lichess.org/training/ZyWWA"
+  },
+  {
+    "puzzleId": "ux4X6",
+    "date": "2026-10-30",
+    "week": "2026-W44",
+    "pulledAtUtc": "2026-10-30 09:11:19",
+    "fen": "7R/8/5p2/1p1r1k2/p1pP4/P1P5/1P3K2/8 w - - 4 48",
+    "sideToMove": "white",
+    "solution": [
+      "h8h5",
+      "f5e4",
+      "h5d5"
+    ],
+    "rating": 831,
+    "themes": [
+      "endgame",
+      "short",
+      "crushing",
+      "rookEndgame"
+    ],
+    "lichessUrl": "https://lichess.org/training/ux4X6"
   }
 ]

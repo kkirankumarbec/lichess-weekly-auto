@@ -1,19 +1,21 @@
 {
-  "puzzleId": "ZyWWA",
+  "puzzleId": "ux4X6",
   "date": "2026-10-30",
   "week": "2026-W44",
-  "pulledAtUtc": "2026-10-30 09:09:59",
-  "fen": "r1b1k2r/pp3p1p/1qn2p2/4p3/N7/3P1N2/PPP1KbPP/R2Q1B1R b kq - 1 10",
-  "sideToMove": "black",
+  "pulledAtUtc": "2026-10-30 09:11:19",
+  "fen": "7R/8/5p2/1p1r1k2/p1pP4/P1P5/1P3K2/8 w - - 4 48",
+  "sideToMove": "white",
   "solution": [
-    "b6e3"
+    "h8h5",
+    "f5e4",
+    "h5d5"
   ],
-  "rating": 688,
+  "rating": 831,
   "themes": [
-    "master",
-    "oneMove",
-    "opening",
-    "mateIn1"
+    "endgame",
+    "short",
+    "crushing",
+    "rookEndgame"
   ],
-  "lichessUrl": "https://lichess.org/training/ZyWWA"
+  "lichessUrl": "https://lichess.org/training/ux4X6"
 }
