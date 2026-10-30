@@ -1,6 +1,16 @@
 {
-  "updatedAtUtc": "2026-10-30 08:50:19",
+  "updatedAtUtc": "2026-10-30 08:53:46",
   "week": "2026-W44",
-  "thisWeek": [],
-  "allTime": []
+  "thisWeek": [
+    {
+      "name": "Bond",
+      "points": 1
+    }
+  ],
+  "allTime": [
+    {
+      "name": "Bond",
+      "points": 1
+    }
+  ]
 }
