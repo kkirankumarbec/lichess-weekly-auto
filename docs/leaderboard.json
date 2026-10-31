@@ -1,23 +1,47 @@
 {
-  "updatedAtUtc": "2026-10-31 05:11:03",
+  "updatedAtUtc": "2026-10-31 14:27:41",
   "week": "2026-W44",
   "thisWeek": [
+    {
+      "name": "hima bindu",
+      "points": 1
+    },
     {
       "name": "Krishn",
       "points": 1
     },
     {
       "name": "Mugdha SV",
+      "points": 1
+    },
+    {
+      "name": "Nithin",
+      "points": 1
+    },
+    {
+      "name": "Vyaan",
       "points": 1
     }
   ],
   "allTime": [
     {
+      "name": "hima bindu",
+      "points": 1
+    },
+    {
       "name": "Krishn",
       "points": 1
     },
     {
       "name": "Mugdha SV",
+      "points": 1
+    },
+    {
+      "name": "Nithin",
+      "points": 1
+    },
+    {
+      "name": "Vyaan",
       "points": 1
     }
   ]
