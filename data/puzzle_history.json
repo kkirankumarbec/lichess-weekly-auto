@@ -53,5 +53,24 @@
       "rookEndgame"
     ],
     "lichessUrl": "https://lichess.org/training/ux4X6"
+  },
+  {
+    "puzzleId": "ET4Y2",
+    "date": "2026-11-02",
+    "week": "2026-W45",
+    "pulledAtUtc": "2026-11-02 06:39:19",
+    "fen": "Q7/7p/5p2/8/4KP2/8/4k1PP/3q4 b - - 1 43",
+    "sideToMove": "black",
+    "solution": [
+      "d1d3"
+    ],
+    "rating": 925,
+    "themes": [
+      "oneMove",
+      "mateIn1",
+      "endgame",
+      "queenEndgame"
+    ],
+    "lichessUrl": "https://lichess.org/training/ET4Y2"
   }
 ]

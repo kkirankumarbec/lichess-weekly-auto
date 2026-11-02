@@ -1,21 +1,19 @@
 {
-  "puzzleId": "ux4X6",
-  "date": "2026-10-30",
-  "week": "2026-W44",
-  "pulledAtUtc": "2026-10-30 09:11:19",
-  "fen": "7R/8/5p2/1p1r1k2/p1pP4/P1P5/1P3K2/8 w - - 4 48",
-  "sideToMove": "white",
+  "puzzleId": "ET4Y2",
+  "date": "2026-11-02",
+  "week": "2026-W45",
+  "pulledAtUtc": "2026-11-02 06:39:19",
+  "fen": "Q7/7p/5p2/8/4KP2/8/4k1PP/3q4 b - - 1 43",
+  "sideToMove": "black",
   "solution": [
-    "h8h5",
-    "f5e4",
-    "h5d5"
+    "d1d3"
   ],
-  "rating": 831,
+  "rating": 925,
   "themes": [
+    "oneMove",
+    "mateIn1",
     "endgame",
-    "short",
-    "crushing",
-    "rookEndgame"
+    "queenEndgame"
   ],
-  "lichessUrl": "https://lichess.org/training/ux4X6"
+  "lichessUrl": "https://lichess.org/training/ET4Y2"
 }
