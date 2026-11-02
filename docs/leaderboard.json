@@ -1,8 +1,33 @@
 {
-  "updatedAtUtc": "2026-11-02 05:39:09",
+  "updatedAtUtc": "2026-11-02 18:08:40",
   "week": "2026-W45",
-  "thisWeek": [],
+  "thisWeek": [
+    {
+      "name": "Arjun sarathi",
+      "points": 1
+    },
+    {
+      "name": "Daivik Mukherjee",
+      "points": 1
+    },
+    {
+      "name": "Ramdsmax19",
+      "points": 1
+    },
+    {
+      "name": "Shivansh Shailesh",
+      "points": 1
+    }
+  ],
   "allTime": [
+    {
+      "name": "Arjun sarathi",
+      "points": 1
+    },
+    {
+      "name": "Daivik Mukherjee",
+      "points": 1
+    },
     {
       "name": "hima bindu",
       "points": 1
@@ -21,6 +46,14 @@
     },
     {
       "name": "Nithin",
+      "points": 1
+    },
+    {
+      "name": "Ramdsmax19",
+      "points": 1
+    },
+    {
+      "name": "Shivansh Shailesh",
       "points": 1
     },
     {
