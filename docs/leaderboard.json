@@ -1,5 +1,5 @@
 {
-  "updatedAtUtc": "2026-11-03 11:47:52",
+  "updatedAtUtc": "2026-11-03 19:23:27",
   "week": "2026-W45",
   "thisWeek": [
     {
@@ -8,6 +8,10 @@
     },
     {
       "name": "Daivik Mukherjee",
+      "points": 1
+    },
+    {
+      "name": "Kaish",
       "points": 1
     },
     {
@@ -21,6 +25,10 @@
   ],
   "allTime": [
     {
+      "name": "Kaish",
+      "points": 2
+    },
+    {
       "name": "Arjun sarathi",
       "points": 1
     },
@@ -30,10 +38,6 @@
     },
     {
       "name": "hima bindu",
-      "points": 1
-    },
-    {
-      "name": "Kaish",
       "points": 1
     },
     {
