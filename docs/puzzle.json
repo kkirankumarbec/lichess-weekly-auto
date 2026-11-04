@@ -1,19 +1,21 @@
 {
-  "puzzleId": "ET4Y2",
-  "date": "2026-11-02",
+  "puzzleId": "Vzv29",
+  "date": "2026-11-04",
   "week": "2026-W45",
-  "pulledAtUtc": "2026-11-02 06:39:19",
-  "fen": "Q7/7p/5p2/8/4KP2/8/4k1PP/3q4 b - - 1 43",
-  "sideToMove": "black",
+  "pulledAtUtc": "2026-11-04 06:54:19",
+  "fen": "2k5/ppp2p1p/7n/3N4/8/5P2/Pq2B2P/3R1K2 w - - 0 26",
+  "sideToMove": "white",
   "solution": [
-    "d1d3"
+    "d5e7",
+    "c8b8",
+    "d1d8"
   ],
-  "rating": 925,
+  "rating": 752,
   "themes": [
-    "oneMove",
-    "mateIn1",
+    "short",
+    "backRankMate",
     "endgame",
-    "queenEndgame"
+    "mateIn2"
   ],
-  "lichessUrl": "https://lichess.org/training/ET4Y2"
+  "lichessUrl": "https://lichess.org/training/Vzv29"
 }
