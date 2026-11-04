@@ -1,31 +1,17 @@
 {
-  "updatedAtUtc": "2026-11-04 11:59:23",
+  "updatedAtUtc": "2026-11-04 19:41:16",
   "week": "2026-W45",
   "thisWeek": [
     {
-      "name": "Arjun sarathi",
-      "points": 1
-    },
-    {
       "name": "Daivik Mukherjee",
-      "points": 1
+      "points": 2
     },
     {
       "name": "Kaish",
-      "points": 1
-    },
-    {
-      "name": "Ramdsmax19",
-      "points": 1
+      "points": 2
     },
     {
       "name": "Shivansh Shailesh",
-      "points": 1
-    }
-  ],
-  "allTime": [
-    {
-      "name": "Kaish",
       "points": 2
     },
     {
@@ -33,11 +19,49 @@
       "points": 1
     },
     {
+      "name": "kavinesh",
+      "points": 1
+    },
+    {
+      "name": "Mugdha_SV",
+      "points": 1
+    },
+    {
+      "name": "radhesh",
+      "points": 1
+    },
+    {
+      "name": "Ramdsmax19",
+      "points": 1
+    },
+    {
+      "name": "Sai_Sushvith",
+      "points": 1
+    }
+  ],
+  "allTime": [
+    {
+      "name": "Kaish",
+      "points": 3
+    },
+    {
       "name": "Daivik Mukherjee",
+      "points": 2
+    },
+    {
+      "name": "Shivansh Shailesh",
+      "points": 2
+    },
+    {
+      "name": "Arjun sarathi",
       "points": 1
     },
     {
       "name": "hima bindu",
+      "points": 1
+    },
+    {
+      "name": "kavinesh",
       "points": 1
     },
     {
@@ -49,7 +73,15 @@
       "points": 1
     },
     {
+      "name": "Mugdha_SV",
+      "points": 1
+    },
+    {
       "name": "Nithin",
+      "points": 1
+    },
+    {
+      "name": "radhesh",
       "points": 1
     },
     {
@@ -57,7 +89,7 @@
       "points": 1
     },
     {
-      "name": "Shivansh Shailesh",
+      "name": "Sai_Sushvith",
       "points": 1
     },
     {
