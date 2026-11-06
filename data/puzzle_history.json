@@ -93,5 +93,26 @@
       "mateIn2"
     ],
     "lichessUrl": "https://lichess.org/training/Vzv29"
+  },
+  {
+    "puzzleId": "cFbJS",
+    "date": "2026-11-06",
+    "week": "2026-W45",
+    "pulledAtUtc": "2026-11-06 07:13:05",
+    "fen": "8/p4p1k/6p1/4Qr1p/8/8/P5PP/5R1K b - - 0 34",
+    "sideToMove": "black",
+    "solution": [
+      "f5f1"
+    ],
+    "rating": 802,
+    "themes": [
+      "endgame",
+      "oneMove",
+      "mateIn1",
+      "queenRookEndgame",
+      "backRankMate",
+      "hangingPiece"
+    ],
+    "lichessUrl": "https://lichess.org/training/cFbJS"
   }
 ]
