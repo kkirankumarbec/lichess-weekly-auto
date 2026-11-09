@@ -1,21 +1,23 @@
 {
-  "puzzleId": "cFbJS",
-  "date": "2026-11-06",
-  "week": "2026-W45",
-  "pulledAtUtc": "2026-11-06 07:13:05",
-  "fen": "8/p4p1k/6p1/4Qr1p/8/8/P5PP/5R1K b - - 0 34",
-  "sideToMove": "black",
+  "puzzleId": "TWWQc",
+  "date": "2026-11-09",
+  "week": "2026-W46",
+  "pulledAtUtc": "2026-11-09 07:02:30",
+  "fen": "5k2/p3n2R/6p1/8/8/q4P1P/4r1P1/1R5K w - - 1 29",
+  "sideToMove": "white",
   "solution": [
-    "f5f1"
+    "b1b8",
+    "e7c8",
+    "b8c8",
+    "e2e8",
+    "h7h8"
   ],
-  "rating": 802,
+  "rating": 1099,
   "themes": [
+    "exposedKing",
     "endgame",
-    "oneMove",
-    "mateIn1",
-    "queenRookEndgame",
-    "backRankMate",
-    "hangingPiece"
+    "advantage",
+    "long"
   ],
-  "lichessUrl": "https://lichess.org/training/cFbJS"
+  "lichessUrl": "https://lichess.org/training/TWWQc"
 }

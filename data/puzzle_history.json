@@ -114,5 +114,28 @@
       "hangingPiece"
     ],
     "lichessUrl": "https://lichess.org/training/cFbJS"
+  },
+  {
+    "puzzleId": "TWWQc",
+    "date": "2026-11-09",
+    "week": "2026-W46",
+    "pulledAtUtc": "2026-11-09 07:02:30",
+    "fen": "5k2/p3n2R/6p1/8/8/q4P1P/4r1P1/1R5K w - - 1 29",
+    "sideToMove": "white",
+    "solution": [
+      "b1b8",
+      "e7c8",
+      "b8c8",
+      "e2e8",
+      "h7h8"
+    ],
+    "rating": 1099,
+    "themes": [
+      "exposedKing",
+      "endgame",
+      "advantage",
+      "long"
+    ],
+    "lichessUrl": "https://lichess.org/training/TWWQc"
   }
 ]
