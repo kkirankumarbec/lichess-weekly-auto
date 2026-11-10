@@ -1,11 +1,16 @@
 {
-  "updatedAtUtc": "2026-11-10 02:38:18",
+  "updatedAtUtc": "2026-11-10 12:26:22",
   "week": "2026-W46",
-  "thisWeek": [],
+  "thisWeek": [
+    {
+      "name": "Kaish",
+      "points": 1
+    }
+  ],
   "allTime": [
     {
       "name": "Kaish",
-      "points": 4
+      "points": 5
     },
     {
       "name": "Daivik Mukherjee",
