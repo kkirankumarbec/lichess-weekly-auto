@@ -1,23 +1,21 @@
 {
-  "puzzleId": "TWWQc",
-  "date": "2026-11-09",
+  "puzzleId": "MI3qF",
+  "date": "2026-11-11",
   "week": "2026-W46",
-  "pulledAtUtc": "2026-11-09 07:02:30",
-  "fen": "5k2/p3n2R/6p1/8/8/q4P1P/4r1P1/1R5K w - - 1 29",
+  "pulledAtUtc": "2026-11-11 06:57:41",
+  "fen": "3Q4/3Nr2k/p1p1q2p/Pb6/8/7P/1P4PK/8 w - - 10 37",
   "sideToMove": "white",
   "solution": [
-    "b1b8",
-    "e7c8",
-    "b8c8",
-    "e2e8",
-    "h7h8"
+    "d7f8",
+    "h7g7",
+    "f8e6"
   ],
-  "rating": 1099,
+  "rating": 1026,
   "themes": [
-    "exposedKing",
     "endgame",
+    "short",
     "advantage",
-    "long"
+    "fork"
   ],
-  "lichessUrl": "https://lichess.org/training/TWWQc"
+  "lichessUrl": "https://lichess.org/training/MI3qF"
 }

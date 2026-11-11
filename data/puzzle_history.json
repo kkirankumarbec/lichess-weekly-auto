@@ -137,5 +137,26 @@
       "long"
     ],
     "lichessUrl": "https://lichess.org/training/TWWQc"
+  },
+  {
+    "puzzleId": "MI3qF",
+    "date": "2026-11-11",
+    "week": "2026-W46",
+    "pulledAtUtc": "2026-11-11 06:57:41",
+    "fen": "3Q4/3Nr2k/p1p1q2p/Pb6/8/7P/1P4PK/8 w - - 10 37",
+    "sideToMove": "white",
+    "solution": [
+      "d7f8",
+      "h7g7",
+      "f8e6"
+    ],
+    "rating": 1026,
+    "themes": [
+      "endgame",
+      "short",
+      "advantage",
+      "fork"
+    ],
+    "lichessUrl": "https://lichess.org/training/MI3qF"
   }
 ]
