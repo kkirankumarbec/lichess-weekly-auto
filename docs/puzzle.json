@@ -1,21 +1,21 @@
 {
-  "puzzleId": "MI3qF",
-  "date": "2026-11-11",
+  "puzzleId": "FcpO5",
+  "date": "2026-11-13",
   "week": "2026-W46",
-  "pulledAtUtc": "2026-11-11 06:57:41",
-  "fen": "3Q4/3Nr2k/p1p1q2p/Pb6/8/7P/1P4PK/8 w - - 10 37",
-  "sideToMove": "white",
+  "pulledAtUtc": "2026-11-13 07:05:32",
+  "fen": "1QR3r1/8/8/8/8/pP3k2/Pr6/K7 b - - 0 54",
+  "sideToMove": "black",
   "solution": [
-    "d7f8",
-    "h7g7",
-    "f8e6"
+    "g8g1",
+    "c8c1",
+    "g1c1"
   ],
-  "rating": 1026,
+  "rating": 802,
   "themes": [
-    "endgame",
     "short",
-    "advantage",
-    "fork"
+    "queenRookEndgame",
+    "endgame",
+    "mateIn2"
   ],
-  "lichessUrl": "https://lichess.org/training/MI3qF"
+  "lichessUrl": "https://lichess.org/training/FcpO5"
 }

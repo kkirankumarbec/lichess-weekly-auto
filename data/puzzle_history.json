@@ -158,5 +158,26 @@
       "fork"
     ],
     "lichessUrl": "https://lichess.org/training/MI3qF"
+  },
+  {
+    "puzzleId": "FcpO5",
+    "date": "2026-11-13",
+    "week": "2026-W46",
+    "pulledAtUtc": "2026-11-13 07:05:32",
+    "fen": "1QR3r1/8/8/8/8/pP3k2/Pr6/K7 b - - 0 54",
+    "sideToMove": "black",
+    "solution": [
+      "g8g1",
+      "c8c1",
+      "g1c1"
+    ],
+    "rating": 802,
+    "themes": [
+      "short",
+      "queenRookEndgame",
+      "endgame",
+      "mateIn2"
+    ],
+    "lichessUrl": "https://lichess.org/training/FcpO5"
   }
 ]
