@@ -1,17 +1,17 @@
 {
-  "updatedAtUtc": "2026-11-13 16:04:13",
+  "updatedAtUtc": "2026-11-14 00:50:05",
   "week": "2026-W46",
   "thisWeek": [
+    {
+      "name": "Kaish",
+      "points": 2
+    },
     {
       "name": "Shivansh Shailesh",
       "points": 2
     },
     {
       "name": "Daivik",
-      "points": 1
-    },
-    {
-      "name": "Kaish",
       "points": 1
     },
     {
@@ -30,7 +30,7 @@
   "allTime": [
     {
       "name": "Kaish",
-      "points": 5
+      "points": 6
     },
     {
       "name": "Shivansh Shailesh",
