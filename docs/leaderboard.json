@@ -1,7 +1,32 @@
 {
-  "updatedAtUtc": "2026-11-18 06:59:28",
+  "updatedAtUtc": "2026-11-18 17:08:34",
   "week": "2026-W47",
-  "thisWeek": [],
+  "thisWeek": [
+    {
+      "name": "Arya sharma",
+      "points": 1
+    },
+    {
+      "name": "Nithin",
+      "points": 1
+    },
+    {
+      "name": "Sai Sushvith C",
+      "points": 1
+    },
+    {
+      "name": "Shivansh Shailesh",
+      "points": 1
+    },
+    {
+      "name": "Varunya",
+      "points": 1
+    },
+    {
+      "name": "Vyaan",
+      "points": 1
+    }
+  ],
   "allTime": [
     {
       "name": "Kaish",
@@ -9,14 +34,14 @@
     },
     {
       "name": "Shivansh Shailesh",
-      "points": 4
-    },
-    {
-      "name": "Daivik Mukherjee",
-      "points": 2
+      "points": 5
     },
     {
       "name": "Nithin",
+      "points": 3
+    },
+    {
+      "name": "Daivik Mukherjee",
       "points": 2
     },
     {
@@ -24,7 +49,19 @@
       "points": 2
     },
     {
+      "name": "Sai Sushvith C",
+      "points": 2
+    },
+    {
+      "name": "Vyaan",
+      "points": 2
+    },
+    {
       "name": "Arjun sarathi",
+      "points": 1
+    },
+    {
+      "name": "Arya sharma",
       "points": 1
     },
     {
@@ -60,15 +97,11 @@
       "points": 1
     },
     {
-      "name": "Sai Sushvith C",
-      "points": 1
-    },
-    {
       "name": "Sai_Sushvith",
       "points": 1
     },
     {
-      "name": "Vyaan",
+      "name": "Varunya",
       "points": 1
     }
   ]
