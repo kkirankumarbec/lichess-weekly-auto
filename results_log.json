@@ -339,5 +339,36 @@
         "score": 6
       }
     ]
+  },
+  {
+    "code": "KCC99",
+    "date": "2026-11-18",
+    "top": [
+      {
+        "rank": 1,
+        "name": "shreyansh1307",
+        "score": 12
+      },
+      {
+        "rank": 2,
+        "name": "Mugdha_SV",
+        "score": 10
+      },
+      {
+        "rank": 3,
+        "name": "KhushiSK",
+        "score": 10
+      },
+      {
+        "rank": 4,
+        "name": "vivaangadia",
+        "score": 10
+      },
+      {
+        "rank": 5,
+        "name": "Utkarshparate",
+        "score": 8
+      }
+    ]
   }
 ]
