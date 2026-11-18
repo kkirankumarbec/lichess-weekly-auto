@@ -201,5 +201,26 @@
       "mateIn2"
     ],
     "lichessUrl": "https://lichess.org/training/8FB1A"
+  },
+  {
+    "puzzleId": "050wQ",
+    "date": "2026-11-18",
+    "week": "2026-W47",
+    "pulledAtUtc": "2026-11-18 07:51:32",
+    "fen": "r1b2rk1/p4ppp/1n6/1P2q3/4p1n1/1BN1P1P1/1P1NQP2/R4R1K b - - 0 19",
+    "sideToMove": "black",
+    "solution": [
+      "e5h5",
+      "h1g1",
+      "h5h2"
+    ],
+    "rating": 1062,
+    "themes": [
+      "mateIn2",
+      "middlegame",
+      "short",
+      "kingsideAttack"
+    ],
+    "lichessUrl": "https://lichess.org/training/050wQ"
   }
 ]

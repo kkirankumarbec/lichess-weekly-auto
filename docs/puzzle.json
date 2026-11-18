@@ -1,22 +1,21 @@
 {
-  "puzzleId": "8FB1A",
-  "date": "2026-11-16",
+  "puzzleId": "050wQ",
+  "date": "2026-11-18",
   "week": "2026-W47",
-  "pulledAtUtc": "2026-11-16 07:08:07",
-  "fen": "2r4k/2Pr1Qpp/p3p3/1p1q4/8/6P1/P5PP/2R2R1K w - - 1 26",
-  "sideToMove": "white",
+  "pulledAtUtc": "2026-11-18 07:51:32",
+  "fen": "r1b2rk1/p4ppp/1n6/1P2q3/4p1n1/1BN1P1P1/1P1NQP2/R4R1K b - - 0 19",
+  "sideToMove": "black",
   "solution": [
-    "f7f8",
-    "c8f8",
-    "f1f8"
+    "e5h5",
+    "h1g1",
+    "h5h2"
   ],
-  "rating": 812,
+  "rating": 1062,
   "themes": [
+    "mateIn2",
+    "middlegame",
     "short",
-    "sacrifice",
-    "backRankMate",
-    "endgame",
-    "mateIn2"
+    "kingsideAttack"
   ],
-  "lichessUrl": "https://lichess.org/training/8FB1A"
+  "lichessUrl": "https://lichess.org/training/050wQ"
 }
