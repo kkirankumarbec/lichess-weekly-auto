@@ -1,21 +1,21 @@
 {
-  "puzzleId": "050wQ",
-  "date": "2026-11-18",
+  "puzzleId": "IQajv",
+  "date": "2026-11-20",
   "week": "2026-W47",
-  "pulledAtUtc": "2026-11-18 07:51:32",
-  "fen": "r1b2rk1/p4ppp/1n6/1P2q3/4p1n1/1BN1P1P1/1P1NQP2/R4R1K b - - 0 19",
-  "sideToMove": "black",
+  "pulledAtUtc": "2026-11-20 07:39:37",
+  "fen": "8/6k1/4b1p1/3prpPp/2p5/4B1KP/2R2P2/8 w - - 0 46",
+  "sideToMove": "white",
   "solution": [
-    "e5h5",
-    "h1g1",
-    "h5h2"
+    "e3d4",
+    "g7f7",
+    "d4e5"
   ],
-  "rating": 1062,
+  "rating": 1084,
   "themes": [
-    "mateIn2",
-    "middlegame",
+    "pin",
     "short",
-    "kingsideAttack"
+    "advantage",
+    "endgame"
   ],
-  "lichessUrl": "https://lichess.org/training/050wQ"
+  "lichessUrl": "https://lichess.org/training/IQajv"
 }

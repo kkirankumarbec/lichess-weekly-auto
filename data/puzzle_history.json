@@ -222,5 +222,26 @@
       "kingsideAttack"
     ],
     "lichessUrl": "https://lichess.org/training/050wQ"
+  },
+  {
+    "puzzleId": "IQajv",
+    "date": "2026-11-20",
+    "week": "2026-W47",
+    "pulledAtUtc": "2026-11-20 07:39:37",
+    "fen": "8/6k1/4b1p1/3prpPp/2p5/4B1KP/2R2P2/8 w - - 0 46",
+    "sideToMove": "white",
+    "solution": [
+      "e3d4",
+      "g7f7",
+      "d4e5"
+    ],
+    "rating": 1084,
+    "themes": [
+      "pin",
+      "short",
+      "advantage",
+      "endgame"
+    ],
+    "lichessUrl": "https://lichess.org/training/IQajv"
   }
 ]
