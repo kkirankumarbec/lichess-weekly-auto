@@ -1,9 +1,13 @@
 {
-  "updatedAtUtc": "2026-11-21 01:19:00",
+  "updatedAtUtc": "2026-11-21 12:23:56",
   "week": "2026-W47",
   "thisWeek": [
     {
       "name": "Arya sharma",
+      "points": 1
+    },
+    {
+      "name": "Kaish",
       "points": 1
     },
     {
@@ -34,7 +38,7 @@
   "allTime": [
     {
       "name": "Kaish",
-      "points": 6
+      "points": 7
     },
     {
       "name": "Shivansh Shailesh",
