@@ -243,5 +243,32 @@
       "endgame"
     ],
     "lichessUrl": "https://lichess.org/training/IQajv"
+  },
+  {
+    "puzzleId": "J5Yz0",
+    "date": "2026-11-23",
+    "week": "2026-W48",
+    "pulledAtUtc": "2026-11-23 08:01:59",
+    "fen": "8/1p6/1K6/2Pp2pp/3P2k1/8/8/8 w - - 0 52",
+    "sideToMove": "white",
+    "solution": [
+      "b6b7",
+      "g4f3",
+      "c5c6",
+      "g5g4",
+      "c6c7",
+      "g4g3",
+      "c7c8q"
+    ],
+    "rating": 911,
+    "themes": [
+      "veryLong",
+      "endgame",
+      "advancedPawn",
+      "crushing",
+      "promotion",
+      "pawnEndgame"
+    ],
+    "lichessUrl": "https://lichess.org/training/J5Yz0"
   }
 ]

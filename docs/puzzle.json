@@ -1,21 +1,27 @@
 {
-  "puzzleId": "IQajv",
-  "date": "2026-11-20",
-  "week": "2026-W47",
-  "pulledAtUtc": "2026-11-20 07:39:37",
-  "fen": "8/6k1/4b1p1/3prpPp/2p5/4B1KP/2R2P2/8 w - - 0 46",
+  "puzzleId": "J5Yz0",
+  "date": "2026-11-23",
+  "week": "2026-W48",
+  "pulledAtUtc": "2026-11-23 08:01:59",
+  "fen": "8/1p6/1K6/2Pp2pp/3P2k1/8/8/8 w - - 0 52",
   "sideToMove": "white",
   "solution": [
-    "e3d4",
-    "g7f7",
-    "d4e5"
+    "b6b7",
+    "g4f3",
+    "c5c6",
+    "g5g4",
+    "c6c7",
+    "g4g3",
+    "c7c8q"
   ],
-  "rating": 1084,
+  "rating": 911,
   "themes": [
-    "pin",
-    "short",
-    "advantage",
-    "endgame"
+    "veryLong",
+    "endgame",
+    "advancedPawn",
+    "crushing",
+    "promotion",
+    "pawnEndgame"
   ],
-  "lichessUrl": "https://lichess.org/training/IQajv"
+  "lichessUrl": "https://lichess.org/training/J5Yz0"
 }
