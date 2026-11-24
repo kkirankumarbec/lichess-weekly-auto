@@ -1,7 +1,12 @@
 {
-  "updatedAtUtc": "2026-11-23 14:19:32",
+  "updatedAtUtc": "2026-11-24 02:50:30",
   "week": "2026-W48",
-  "thisWeek": [],
+  "thisWeek": [
+    {
+      "name": "Daivik Mukherjee",
+      "points": 1
+    }
+  ],
   "allTime": [
     {
       "name": "Kaish",
@@ -12,12 +17,12 @@
       "points": 5
     },
     {
-      "name": "Nithin",
+      "name": "Daivik Mukherjee",
       "points": 3
     },
     {
-      "name": "Daivik Mukherjee",
-      "points": 2
+      "name": "Nithin",
+      "points": 3
     },
     {
       "name": "hima bindu",
