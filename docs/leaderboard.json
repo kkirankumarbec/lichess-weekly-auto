@@ -1,16 +1,24 @@
 {
-  "updatedAtUtc": "2026-11-24 14:42:51",
+  "updatedAtUtc": "2026-11-25 00:32:10",
   "week": "2026-W48",
   "thisWeek": [
     {
       "name": "Daivik Mukherjee",
+      "points": 1
+    },
+    {
+      "name": "Kaish",
+      "points": 1
+    },
+    {
+      "name": "Ramdsmax",
       "points": 1
     }
   ],
   "allTime": [
     {
       "name": "Kaish",
-      "points": 7
+      "points": 8
     },
     {
       "name": "Shivansh Shailesh",
@@ -74,6 +82,10 @@
     },
     {
       "name": "radhesh",
+      "points": 1
+    },
+    {
+      "name": "Ramdsmax",
       "points": 1
     },
     {
