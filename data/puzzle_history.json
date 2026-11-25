@@ -270,5 +270,25 @@
       "pawnEndgame"
     ],
     "lichessUrl": "https://lichess.org/training/J5Yz0"
+  },
+  {
+    "puzzleId": "Rzk3E",
+    "date": "2026-11-25",
+    "week": "2026-W48",
+    "pulledAtUtc": "2026-11-25 08:59:45",
+    "fen": "r1bq1r1k/pp1p2np/2n2Np1/2p1p1P1/8/1P2P3/P1PPBP2/Q3K1NR w K - 0 15",
+    "sideToMove": "white",
+    "solution": [
+      "h1h7"
+    ],
+    "rating": 804,
+    "themes": [
+      "arabianMate",
+      "oneMove",
+      "opening",
+      "mateIn1",
+      "kingsideAttack"
+    ],
+    "lichessUrl": "https://lichess.org/training/Rzk3E"
   }
 ]
