@@ -1,39 +1,91 @@
 {
-  "updatedAtUtc": "2026-11-25 14:06:12",
+  "updatedAtUtc": "2026-11-26 00:08:17",
   "week": "2026-W48",
   "thisWeek": [
+    {
+      "name": "Kaish",
+      "points": 2
+    },
+    {
+      "name": "Ramdsmax",
+      "points": 2
+    },
+    {
+      "name": "Daivik",
+      "points": 1
+    },
     {
       "name": "Daivik Mukherjee",
       "points": 1
     },
     {
-      "name": "Kaish",
+      "name": "Mugdha SV",
       "points": 1
     },
     {
-      "name": "Ramdsmax",
+      "name": "Nithin",
+      "points": 1
+    },
+    {
+      "name": "Sai Sushvith C",
+      "points": 1
+    },
+    {
+      "name": "Samiksh Jain",
+      "points": 1
+    },
+    {
+      "name": "Shivansh Shailesh",
+      "points": 1
+    },
+    {
+      "name": "Varunya",
+      "points": 1
+    },
+    {
+      "name": "Vyaan",
       "points": 1
     }
   ],
   "allTime": [
     {
       "name": "Kaish",
-      "points": 8
+      "points": 9
     },
     {
       "name": "Shivansh Shailesh",
-      "points": 5
+      "points": 6
+    },
+    {
+      "name": "Nithin",
+      "points": 4
     },
     {
       "name": "Daivik Mukherjee",
       "points": 3
     },
     {
-      "name": "Nithin",
+      "name": "Sai Sushvith C",
       "points": 3
     },
     {
+      "name": "Vyaan",
+      "points": 3
+    },
+    {
+      "name": "Daivik",
+      "points": 2
+    },
+    {
       "name": "hima bindu",
+      "points": 2
+    },
+    {
+      "name": "Mugdha SV",
+      "points": 2
+    },
+    {
+      "name": "Ramdsmax",
       "points": 2
     },
     {
@@ -41,11 +93,7 @@
       "points": 2
     },
     {
-      "name": "Sai Sushvith C",
-      "points": 2
-    },
-    {
-      "name": "Vyaan",
+      "name": "Varunya",
       "points": 2
     },
     {
@@ -54,10 +102,6 @@
     },
     {
       "name": "Arya sharma",
-      "points": 1
-    },
-    {
-      "name": "Daivik",
       "points": 1
     },
     {
@@ -73,19 +117,11 @@
       "points": 1
     },
     {
-      "name": "Mugdha SV",
-      "points": 1
-    },
-    {
       "name": "Mugdha_SV",
       "points": 1
     },
     {
       "name": "radhesh",
-      "points": 1
-    },
-    {
-      "name": "Ramdsmax",
       "points": 1
     },
     {
@@ -97,7 +133,7 @@
       "points": 1
     },
     {
-      "name": "Varunya",
+      "name": "Samiksh Jain",
       "points": 1
     }
   ]
