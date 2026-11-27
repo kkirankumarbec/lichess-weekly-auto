@@ -1,20 +1,22 @@
 {
-  "puzzleId": "Rzk3E",
-  "date": "2026-11-25",
+  "puzzleId": "kGK82",
+  "date": "2026-11-27",
   "week": "2026-W48",
-  "pulledAtUtc": "2026-11-25 08:59:45",
-  "fen": "r1bq1r1k/pp1p2np/2n2Np1/2p1p1P1/8/1P2P3/P1PPBP2/Q3K1NR w K - 0 15",
+  "pulledAtUtc": "2026-11-27 08:57:45",
+  "fen": "8/3P2kp/p3p3/1pr1Pr2/8/P5B1/2p4P/3R2K1 w - - 0 37",
   "sideToMove": "white",
   "solution": [
-    "h1h7"
+    "d7d8q",
+    "c2d1r",
+    "d8d1"
   ],
-  "rating": 804,
+  "rating": 1049,
   "themes": [
-    "arabianMate",
-    "oneMove",
-    "opening",
-    "mateIn1",
-    "kingsideAttack"
+    "endgame",
+    "advancedPawn",
+    "short",
+    "advantage",
+    "promotion"
   ],
-  "lichessUrl": "https://lichess.org/training/Rzk3E"
+  "lichessUrl": "https://lichess.org/training/kGK82"
 }

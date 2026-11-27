@@ -290,5 +290,27 @@
       "kingsideAttack"
     ],
     "lichessUrl": "https://lichess.org/training/Rzk3E"
+  },
+  {
+    "puzzleId": "kGK82",
+    "date": "2026-11-27",
+    "week": "2026-W48",
+    "pulledAtUtc": "2026-11-27 08:57:45",
+    "fen": "8/3P2kp/p3p3/1pr1Pr2/8/P5B1/2p4P/3R2K1 w - - 0 37",
+    "sideToMove": "white",
+    "solution": [
+      "d7d8q",
+      "c2d1r",
+      "d8d1"
+    ],
+    "rating": 1049,
+    "themes": [
+      "endgame",
+      "advancedPawn",
+      "short",
+      "advantage",
+      "promotion"
+    ],
+    "lichessUrl": "https://lichess.org/training/kGK82"
   }
 ]
